@@ -15,10 +15,12 @@ def create_app():
     from routes.services import services_bp
     from routes.testimonials import testimonials_bp
     from routes.bookings import bookings_bp
+    from routes.about import about_bp
     app.register_blueprint(health_bp)
     app.register_blueprint(services_bp)
     app.register_blueprint(testimonials_bp)
     app.register_blueprint(bookings_bp)
+    app.register_blueprint(about_bp)
 
     return app
 
