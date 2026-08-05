@@ -27,17 +27,7 @@ astro/
 
 </details>
 
-### Backend
-- Flask REST API
-- JWT Authentication
-- PostgreSQL
-- SQLAlchemy
 
-### Frontend
-- React
-- Vite
-- Axios
-- React Router
 
 ## Features
 
