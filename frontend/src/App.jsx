@@ -1,23 +1,31 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Testimonials from "./pages/Testimonials";
 import Contact from "./pages/Contact";
-// import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <Navbar /> */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/testimonials" element={<Testimonials />} />
-        
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+
+      <div className="min-h-screen bg-[#F9F1E4]">
+
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+
+      </div>
+
     </BrowserRouter>
   );
 }

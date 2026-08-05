@@ -60,7 +60,7 @@ function About() {
 
         {/* Description */}
 
-        <div className="bg-[#FCF6EC] rounded-[32px] border border-[#ECDCC5] shadow-lg p-10">
+        <div className="bg-[#FCF6EC] rounded-4xl border border-[#ECDCC5] shadow-lg p-10">
 
           <div className="flex items-center gap-4 mb-8">
 
@@ -126,7 +126,7 @@ function About() {
             Approach & Ethics
           </h2>
 
-          <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-[32px] shadow-lg p-8">
+          <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-4xl shadow-lg p-8">
 
             <div className="space-y-5">
 
@@ -159,7 +159,7 @@ function About() {
 
         <div className="mt-20">
 
-          <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-[32px] shadow-lg p-10">
+          <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-4xl shadow-lg p-10">
 
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
 
