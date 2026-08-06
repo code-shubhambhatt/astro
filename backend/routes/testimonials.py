@@ -2,6 +2,8 @@ from flask import Blueprint,request
 from extensions import mongo
 from bson import ObjectId
 from datetime import datetime
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 
 testimonials_bp = Blueprint("testimonials", __name__)
 
@@ -18,6 +20,7 @@ def testimonials():
         return {"error": str(e)}, 500
     
 @testimonials_bp.route("/api/testimonials", methods=["POST"])
+# @jwt_required()
 def create_testimonial():
     data = request.get_json()
     if not data:

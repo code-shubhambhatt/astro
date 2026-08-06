@@ -1,9 +1,11 @@
 from flask import Blueprint, request
 from extensions import mongo
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 about_bp = Blueprint("about", __name__)
 
 @about_bp.route("/api/about", methods=["PUT"])
+@jwt_required()
 def update_about():
     data = request.get_json()
 

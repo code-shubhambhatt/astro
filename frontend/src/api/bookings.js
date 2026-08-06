@@ -14,3 +14,18 @@ export async function createBooking(bookingData){
     }
     return response.json()
 }
+
+export async function getAllBookings(){
+    const token = localStorage.getItem("access_token")
+    const response = await fetch(`${API_BASE}/bookings`,{
+        headers:{
+            "Authorization" : `Bearer ${token}`
+        }
+        
+    })
+    if (!response.ok){
+        throw new Error("Failed to get bookings")
+    }
+    const data = await response.json()
+    return data.bookings
+}

@@ -2,6 +2,8 @@ from flask import Blueprint, request
 from config import Config 
 from extensions import mongo
 from bson import ObjectId
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 
 services_bp = Blueprint("services", __name__)
 
@@ -33,6 +35,7 @@ def get_service(id):
         return {"error": str(e)},500
     
 @services_bp.route("/api/services", methods= ["POST"])
+@jwt_required()
 def create_service():
     data = request.get_json()
     if not data :

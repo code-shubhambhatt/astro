@@ -2,8 +2,23 @@ from flask import Blueprint , request
 from extensions import mongo
 import re 
 from datetime import datetime
+from flask_jwt_extended import jwt_required, get_jwt_identity
+# from bson import ObjectId
 
 bookings_bp = Blueprint("bookings", __name__)
+
+@bookings_bp.route('/api/bookings', methods=["GET"])
+@jwt_required()
+def get_bookings():
+    try:
+        bookings = mongo.db.bookings.find({}).sort("created_at",-1)
+        booking_list = []
+        for booking in bookings :
+            booking["_id"] = str(booking["_id"])
+            booking_list.append(booking)
+        return { "bookings" : booking_list}, 200
+    except Exception as e :
+        return { "error" : str(e)}, 500
 
 @bookings_bp.route("/api/bookings", methods=["POST"])
 def create_bookings():
