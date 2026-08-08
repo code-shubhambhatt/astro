@@ -29,3 +29,20 @@ export async function getAllBookings(){
     const data = await response.json()
     return data.bookings
 }
+
+export async function updateBookingStatus(id, status){
+    const token = localStorage.getItem("access_token")
+    const response = await fetch(`${API_BASE}/bookings/${id}`,{
+        method: "PUT",
+        headers : {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body : JSON.stringify({status})
+    })
+    if (!response.ok){
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to update booking")
+    }
+    return response.json()
+}

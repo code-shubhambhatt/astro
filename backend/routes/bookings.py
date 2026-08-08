@@ -3,7 +3,7 @@ from extensions import mongo
 import re 
 from datetime import datetime
 from flask_jwt_extended import jwt_required, get_jwt_identity
-# from bson import ObjectId
+from bson import ObjectId
 
 bookings_bp = Blueprint("bookings", __name__)
 
@@ -57,3 +57,24 @@ def create_bookings():
     except Exception as e:
         return {"error": str(e)}, 500
     
+@bookings_bp.route("/api/bookings/<id>", methods = ["PUT"])
+@jwt_required()
+def update_booking_status(id):
+    if not ObjectId.is_valid(id):
+        return {"error": "Invalid Id"}, 400
+    data = request.get_json()
+    if not data :
+        return {"error": "No data provided"}, 400
+    status = data.get("status")
+    if not (status in ("completed", "new")) :
+        return {"error": "Invalid status provided"}, 400
+    try :
+        result = mongo.db.bookings.update_one(
+            {"_id": ObjectId(id)},
+            {"$set": {"status": status}}                                  
+            )
+        if result.matched_count == 0:
+            return {"error": "Booking not found"}, 404
+        return {"status": "booking updated successfully"}, 200
+    except Exception as e:
+        return {"error": str(e)}, 500
