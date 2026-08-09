@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import AdminAbout from "./pages/AdminAbout";
 import AdminServices from "./pages/AdminServices";
+import AdminTestimonials from "./pages/AdminTestimonials";
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +31,7 @@ function App() {
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/dashboard/about" element={<ProtectedRoute><AdminAbout /></ProtectedRoute>} />
           <Route path="/dashboard/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
+          <Route path="/dashboard/testimonials" element={<ProtectedRoute><AdminTestimonials /></ProtectedRoute>} />
           
         </Routes>
 

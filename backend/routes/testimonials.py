@@ -46,3 +46,39 @@ def create_testimonial():
     except Exception as e:
         return {"error": str(e)}, 500
     
+@testimonials_bp.route("/api/testimonials/<id>", methods=["PUT"])
+@jwt_required()
+def update_testimonial(id):
+    if not ObjectId.is_valid(id):
+        return {"error": "Invalid Id"}, 400
+
+    data = request.get_json()
+
+    if not data:
+        return {"error": "No data provided"}, 400
+
+    try:
+        updated_testimonial = {
+            "client_name": data.get("client_name"),
+            "client_occupation": data.get("client_occupation"),
+            "service_type": data.get("service_type"),
+            "quote": data.get("quote"),
+            "rating": int(data.get("rating", 5)),
+            "is_visible": bool(data.get("is_visible", True))
+        }
+
+        result = mongo.db.testimonials.update_one(
+            {"_id": ObjectId(id)},
+            {"$set": updated_testimonial}
+        )
+
+        if result.matched_count == 0:
+            return {"error": "Testimonial not found"}, 404
+
+        return {"status": "testimonial updated successfully"}, 200
+
+    except (TypeError, ValueError) as e:
+        return {"error": f"Invalid field type: {str(e)}"}, 400
+
+    except Exception as e:
+        return {"error": str(e)}, 500
