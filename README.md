@@ -4,8 +4,6 @@ Full-stack consultation website for Pandit Kamla Prasad Bhatt built with Flask, 
 
 ## Project Structure
 
-## 📁 Project Structure
-
 <details>
 <summary><b>📁 Project Structure</b></summary>
 
@@ -27,19 +25,35 @@ astro/
 
 </details>
 
+### Backend
 
+- Flask REST API (app factory pattern, Blueprints)
+- MongoDB Atlas (via PyMongo)
+- JWT Authentication (flask-jwt-extended)
+- Password hashing (werkzeug.security)
+
+### Frontend
+
+- React + Vite
+- Tailwind CSS
+- React Router
+- Native `fetch` for API calls
 
 ## Features
 
 - **Services** — list and view Vedic astrology services
-- **Testimonials** — client feedback and ratings
+- **Testimonials** — client feedback and ratings, with public submission
 - **Booking** — consultation request form with validation
+- **About** — bio, milestones, and approach/ethics content
+- **Contact** — live contact info (phone/email/address), sourced from a single admin-editable record
+- **Admin Panel** — JWT-protected dashboard for managing bookings (view all, mark completed) and editing About/contact content
 - **Responsive** — works on mobile, tablet, desktop
 
 ## Tech Stack
 
-**Backend:** Flask, MongoDB, Python  
+**Backend:** Flask, MongoDB, PyMongo, Python  
 **Frontend:** React, Vite, Tailwind CSS  
+**Auth:** JWT (flask-jwt-extended)  
 **Deployment:** (planned)
 
 ## Getting Started
@@ -63,7 +77,6 @@ Runs on `http://localhost:5000`
 ```bash
 cd frontend
 npm install
-cp .env.example .env
 npm run dev
 ```
 
@@ -71,18 +84,25 @@ Runs on `http://localhost:5173`
 
 ## API Endpoints
 
-- `GET /api/services` — list all services
+**Public**
+- `GET /api/services` — list all active services
 - `GET /api/services/<id>` — get single service
-- `POST /api/services` — create service (admin)
-- `GET /api/testimonials` — list testimonials
-- `POST /api/testimonials` — create testimonial
-- `POST /api/bookings` — create booking request
+- `GET /api/testimonials` — list visible testimonials
+- `POST /api/testimonials` — submit a testimonial
+- `POST /api/bookings` — create a booking request
+- `GET /api/about` — get about/contact content
+- `POST /api/auth/login` — admin login, returns JWT
+
+**Protected (requires JWT)**
+- `GET /api/bookings` — list all bookings
+- `PUT /api/bookings/<id>` — update booking status (`new` / `completed`)
+- `POST /api/services` — create a service
+- `PUT /api/about` — update about/contact content
 
 ## Next Steps
 
-- [ ] Build About page
-- [ ] Complete booking form with email notifications
-- [ ] Add admin panel for managing bookings
+- [ ] Email notifications on new bookings
+- [ ] PUT/DELETE routes for Services and Testimonials (admin management)
 - [ ] Deploy (Vercel + Railway/Render)
 
 ## Contributing
