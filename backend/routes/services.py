@@ -84,7 +84,7 @@ def update_service(id):
             "display_order": int(data.get("display_order")),
             "is_active": bool(data.get("is_active", True))
         }
-        result = mongo.db.services.find_one(
+        result = mongo.db.services.update_one(
             {"_id" : ObjectId(id)},
             {"$set": updated_service}
         )

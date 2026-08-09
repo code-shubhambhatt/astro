@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import AdminAbout from "./pages/AdminAbout";
+import AdminServices from "./pages/AdminServices";
 function App() {
   return (
     <BrowserRouter>
@@ -28,6 +29,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/dashboard/about" element={<ProtectedRoute><AdminAbout /></ProtectedRoute>} />
+          <Route path="/dashboard/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
           
         </Routes>
 
