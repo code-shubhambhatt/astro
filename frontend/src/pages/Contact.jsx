@@ -155,7 +155,7 @@ function Contact() {
               </label>
 
               <input
-                type="text"
+                type="date"
                 name="preferred_datetime"
                 required
                 value={formData.preferred_datetime}

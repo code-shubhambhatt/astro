@@ -7,7 +7,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 services_bp = Blueprint("services", __name__)
 
-@services_bp.route("/api/services/" ,methods= ["GET"])
+@services_bp.route("/api/services" ,methods= ["GET"])
 def services():
     try: 
         active_services = mongo.db.services.find({"is_active": True}).sort("display_order",1)

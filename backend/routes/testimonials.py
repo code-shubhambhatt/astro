@@ -20,7 +20,6 @@ def testimonials():
         return {"error": str(e)}, 500
     
 @testimonials_bp.route("/api/testimonials", methods=["POST"])
-# @jwt_required()
 def create_testimonial():
     data = request.get_json()
     if not data:

@@ -173,7 +173,10 @@ function Dashboard() {
                         </span>
 
                         <span>
-                          🗓️ {booking.preferred_datetime}
+                          🗓️{" "}
+                          {booking.preferred_datetime?.$date
+                            ? new Date(booking.preferred_datetime.$date).toLocaleString()
+                            : booking.preferred_datetime}
                         </span>
 
                         {booking.email && (
@@ -191,9 +194,11 @@ function Dashboard() {
 
                       <p className="text-xs text-gray-400 mt-3">
                         Requested{" "}
-                        {new Date(
-                          booking.created_at
-                        ).toLocaleDateString()}
+                        {booking.created_at?.$date
+                          ? new Date(booking.created_at.$date).toLocaleDateString()
+                          : booking.created_at
+                            ? new Date(booking.created_at).toLocaleDateString()
+                            : ""}
                       </p>
 
                     </div>

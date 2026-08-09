@@ -7,10 +7,10 @@ function Testimonials() {
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
-    name: "",
-    occupation: "",
+    client_name: "",
+    client_occupation: "",
     rating: 5,
-    testimonial: "",
+    quote: "",
   });
 
   useEffect(() => {
@@ -35,10 +35,10 @@ function Testimonials() {
     alert("Testimonial submission will be added soon.");
 
     setFormData({
-      name: "",
-      occupation: "",
+      client_name: "",
+      client_occupation: "",
       rating: 5,
-      testimonial: "",
+      quote: "",
     });
   }
 
@@ -179,7 +179,7 @@ function Testimonials() {
                   <input
                     type="text"
                     name="name"
-                    value={formData.name}
+                    value={formData.client_name}
                     onChange={handleChange}
                     required
                     placeholder="Your name"
@@ -197,7 +197,7 @@ function Testimonials() {
                   <input
                     type="text"
                     name="occupation"
-                    value={formData.occupation}
+                    value={formData.client_occupation}
                     onChange={handleChange}
                     required
                     placeholder="Your occupation"
@@ -236,7 +236,7 @@ function Testimonials() {
                   <textarea
                     rows={7}
                     name="testimonial"
-                    value={formData.testimonial}
+                    value={formData.quote}
                     onChange={handleChange}
                     required
                     placeholder="Share your experience..."

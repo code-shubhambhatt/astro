@@ -45,8 +45,9 @@ def create_bookings():
             "phone" : str(data.get("phone")),
             "email" : str(data.get("email","")),
             "service_interested" : str(data.get("service_interested")),
-            "preferred_datetime" : str(data.get("preferred_datetime")),
-            "message" : str(data.get("message", "")),
+            "preferred_datetime": datetime.fromisoformat(
+                data.get("preferred_datetime")
+            ),            "message" : str(data.get("message", "")),
             "status" : "new",
             "created_at" : datetime.utcnow()
         }
