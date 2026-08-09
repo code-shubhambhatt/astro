@@ -64,3 +64,37 @@ def create_service():
         return {"error": f"Invalid field type: {str(e)}"}, 400
     except Exception as e:
         return {"error": str(e)}, 500
+
+@services_bp.route("/api/services/<id>", methods = ["PUT"])
+@jwt_required()
+def update_service(id):
+    if not ObjectId.is_valid(id) :
+        return {"error" : "Invalid service id"}, 400
+    data = request.get_json()
+    if not data:
+        return {"error": "No data provided"}, 400
+
+    try:
+        updated_service = {
+            "name": data.get("name"),
+            "slug": data.get("slug"),
+            "description": data.get("description"),
+            "mode": data.get("mode"),
+            "duration": data.get("duration", ""),
+            "display_order": int(data.get("display_order")),
+            "is_active": bool(data.get("is_active", True))
+        }
+        result = mongo.db.services.find_one(
+            {"_id" : ObjectId(id)},
+            {"$set": updated_service}
+        )
+        if result.matched_count == 0:
+            return {"error": "Service not found"},404
+
+        return {"status": "service updated successfully"}, 200
+
+    except (TypeError, ValueError) as e:
+        return {"error": f"Invalid field type: {str(e)}"}, 400
+
+    except Exception as e:
+        return {"error": str(e)}, 500
