@@ -312,26 +312,30 @@ function Contact() {
 
 
           {/* Directions */}
-          <a
-            href={contactInfo.directions}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 flex items-center justify-between bg-[#8B1111] hover:bg-[#6D0D0D] text-white rounded-2xl px-5 py-4 transition"
-          >
-            <div>
-              <p className="font-medium">
-                Get Directions
-              </p>
+          <div className="mt-8 pt-6 border-t border-[#ECDCC5]">
 
-              <p className="text-sm text-white/70 mt-1">
-                Find us in Haridwar
-              </p>
+            <p className="text-xs uppercase tracking-wider text-gray-500 mb-3">
+              Find Us
+            </p>
+
+            <h3 className="font-serif text-2xl text-[#2F120F] mb-4">
+              Our Location
+            </h3>
+
+            <div className="rounded-2xl overflow-hidden border border-[#ECDCC5]">
+              <iframe
+                src={contactInfo.directions}
+                width="100%"
+                height="250"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                title="JyotishHorizon Location"
+              />
             </div>
 
-            <span className="text-xl">
-              →
-            </span>
-          </a>
+          </div>
 
         </div>
       </div>
