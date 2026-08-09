@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getAllTestimonials } from "../api/testimonials";
+import { getAllTestimonials, createTestimonial } from "../api/testimonials";
 
 function Testimonials() {
   const [testimonials, setTestimonials] = useState([]);
@@ -9,15 +9,20 @@ function Testimonials() {
   const [formData, setFormData] = useState({
     client_name: "",
     client_occupation: "",
+    service_type: "",
     rating: 5,
     quote: "",
   });
 
-  useEffect(() => {
+  const fetchTestimonials = () => {
     getAllTestimonials()
       .then((data) => setTestimonials(data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchTestimonials();
   }, []);
 
   function handleChange(e) {
@@ -32,14 +37,21 @@ function Testimonials() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    alert("Testimonial submission will be added soon.");
-
-    setFormData({
-      client_name: "",
-      client_occupation: "",
-      rating: 5,
-      quote: "",
-    });
+    createTestimonial(formData)
+      .then(() => {
+        alert("Testimonial submitted successfully!");
+        setFormData({
+          client_name: "",
+          client_occupation: "",
+          service_type: "",
+          rating: 5,
+          quote: "",
+        });
+        fetchTestimonials();
+      })
+      .catch((err) => {
+        alert("Failed to submit testimonial: " + err.message);
+      });
   }
 
   if (loading) {
@@ -178,7 +190,7 @@ function Testimonials() {
 
                   <input
                     type="text"
-                    name="name"
+                    name="client_name"
                     value={formData.client_name}
                     onChange={handleChange}
                     required
@@ -196,11 +208,28 @@ function Testimonials() {
 
                   <input
                     type="text"
-                    name="occupation"
+                    name="client_occupation"
                     value={formData.client_occupation}
                     onChange={handleChange}
                     required
                     placeholder="Your occupation"
+                    className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#8B1111]"
+                  />
+
+                </div>
+                <div>
+
+                  <label className="block mb-2 font-medium text-gray-700">
+                    Service Taken
+                  </label>
+
+                  <input
+                    type="text"
+                    name="service_type"
+                    value={formData.service_type}
+                    onChange={handleChange}
+                    required
+                    placeholder="Service taken"
                     className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#8B1111]"
                   />
 
@@ -235,7 +264,7 @@ function Testimonials() {
 
                   <textarea
                     rows={7}
-                    name="testimonial"
+                    name="quote"
                     value={formData.quote}
                     onChange={handleChange}
                     required
@@ -262,7 +291,7 @@ function Testimonials() {
 
       </div>
 
-    </section>
+    </section>  
   );
 }
 

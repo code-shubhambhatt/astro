@@ -26,6 +26,8 @@ def get_service(id):
     
     try:
         service = mongo.db.services.find_one({"_id": ObjectId(id) })
+        if not service:
+            return {"error": "Service not found"}, 404
         service["_id"] = str(service["_id"])
         if service["is_active"] :
             return {"data": service},200

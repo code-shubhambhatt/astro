@@ -6,6 +6,11 @@ function AdminAbout() {
     description: "",
     milestones: "",
     approach_ethics: "",
+    phone: "",
+    email: "",
+    address: "",
+    facebook: "",
+    directions: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -20,6 +25,11 @@ function AdminAbout() {
           description: data.description || "",
           milestones: (data.milestones || []).join("\n"),
           approach_ethics: (data.approach_ethics || []).join("\n"),
+          phone: data.phone || "",
+          email: data.email || "",
+          address: data.address || "",
+          facebook: data.facebook || "",
+          directions: data.directions || "",
         });
       })
       .catch((err) => setError(err.message))
@@ -57,6 +67,11 @@ function AdminAbout() {
           .split("\n")
           .map((line) => line.trim())
           .filter((line) => line.length > 0),
+          phone: formData.phone,
+          email: formData.email,
+          address: formData.address,
+          facebook: formData.facebook,
+          directions: formData.directions,
       };
 
       await updateAbout(payload);

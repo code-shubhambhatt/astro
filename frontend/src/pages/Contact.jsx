@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createBooking } from "../api/bookings";
-
+import { getAbout } from "../api/about";
 function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -9,10 +9,13 @@ function Contact() {
     service_interested: "",
     preferred_datetime: "",
     message: "",
+
   });
 
   const [status, setStatus] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [contactInfo, setContactInfo] = useState({});
+
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -46,6 +49,9 @@ function Contact() {
       setErrorMsg(err.message);
     }
   }
+  useEffect(() => {
+    getAbout().then((data) => setContactInfo(data)).catch(() => { });
+  }, []);
 
   return (
     <div className="bg-[#F9F1E4] min-h-screen py-16 px-4">
@@ -213,73 +219,121 @@ function Contact() {
 
         {/* Contact Card */}
 
-        <div className="space-y-6">
+        <div className="bg-[#FCF6EC] rounded-3xl border border-[#ECDCC5] shadow-md p-8">
 
-          <div className="bg-white rounded-3xl shadow-lg border border-[#F0E4D1] p-8">
+          {/* Header */}
+          <div className="mb-8">
+            <p className="uppercase tracking-[3px] text-xs font-semibold text-[#8B1111]">
+              Get In Touch
+            </p>
 
-            <h2 className="text-2xl font-serif text-[#7C1111] mb-6">
+            <h2 className="font-serif text-3xl text-[#2F120F] mt-2">
               Contact Information
             </h2>
 
-            <div className="space-y-5">
+            <p className="text-gray-600 mt-2 leading-relaxed">
+              Have a question or want to book a consultation?
+            </p>
+          </div>
 
-              <div>
-                <p className="font-semibold text-gray-800">
-                  Phone
-                </p>
 
-                <p className="text-gray-600">
-                  +91 XXXXX XXXXX
-                </p>
-              </div>
+          {/* Contact Details */}
+          <div className="space-y-6">
 
-              <div>
-                <p className="font-semibold text-gray-800">
-                  Email
-                </p>
+            {/* Phone */}
+            <div>
+              <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+                Phone
+              </p>
 
-                <p className="text-gray-600 break-all">
-                  your@email.com
-                </p>
-              </div>
+              <a
+                href={`tel:${contactInfo.phone}`}
+                className="text-lg text-[#2F120F] hover:text-[#8B1111] transition"
+              >
+                {contactInfo.phone}
+              </a>
+            </div>
 
-              <div>
-                <p className="font-semibold text-gray-800">
-                  Address
-                </p>
 
-                <p className="text-gray-600">
-                  Haridwar, Uttarakhand
-                </p>
-              </div>
+            {/* Email */}
+            <div>
+              <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+                Email
+              </p>
 
+              <a
+                href={`mailto:${contactInfo.email}`}
+                className="text-lg text-[#2F120F] hover:text-[#8B1111] break-all transition"
+              >
+                {contactInfo.email}
+              </a>
+            </div>
+
+
+            {/* Address */}
+            <div>
+              <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+                Visit Us
+              </p>
+
+              <p className="text-lg leading-relaxed text-[#2F120F]">
+                {contactInfo.address}
+              </p>
             </div>
 
           </div>
 
-          {/* <div className="bg-white rounded-3xl shadow-lg border border-[#F0E4D1] p-8">
 
-            <h2 className="text-2xl font-serif text-[#7C1111] mb-4">
-              Consultation Hours
-            </h2>
+          {/* Divider */}
+          <div className="border-t border-[#ECDCC5] my-7" />
 
-            <div className="space-y-2 text-gray-600">
 
-              <p>Monday – Saturday</p>
-
-              <p>10:00 AM – 6:00 PM</p>
-
-              <p className="pt-4 text-sm">
-                We usually respond within 24 hours after receiving your
-                consultation request.
+          {/* Facebook */}
+          <a
+            href={contactInfo.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between group"
+          >
+            <div>
+              <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+                Connect
               </p>
 
+              <p className="text-[#2F120F] font-medium group-hover:text-[#8B1111] transition">
+                Facebook Profile
+              </p>
             </div>
 
-          </div> */}
+            <span className="text-[#8B1111] text-xl group-hover:translate-x-1 transition">
+              →
+            </span>
+          </a>
+
+
+          {/* Directions */}
+          <a
+            href={contactInfo.directions}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 flex items-center justify-between bg-[#8B1111] hover:bg-[#6D0D0D] text-white rounded-2xl px-5 py-4 transition"
+          >
+            <div>
+              <p className="font-medium">
+                Get Directions
+              </p>
+
+              <p className="text-sm text-white/70 mt-1">
+                Find us in Haridwar
+              </p>
+            </div>
+
+            <span className="text-xl">
+              →
+            </span>
+          </a>
 
         </div>
-
       </div>
     </div>
   );
