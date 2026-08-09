@@ -67,11 +67,12 @@ function AdminAbout() {
           .split("\n")
           .map((line) => line.trim())
           .filter((line) => line.length > 0),
-          phone: formData.phone,
-          email: formData.email,
-          address: formData.address,
-          facebook: formData.facebook,
-          directions: formData.directions,
+
+        phone: formData.phone,
+        email: formData.email,
+        address: formData.address,
+        facebook: formData.facebook,
+        directions: formData.directions,
       };
 
       await updateAbout(payload);
@@ -101,7 +102,6 @@ function AdminAbout() {
         {/* Header */}
 
         <div className="mb-10">
-
           <p className="uppercase tracking-[4px] text-sm font-semibold text-[#8B1111]">
             Admin Panel
           </p>
@@ -111,139 +111,228 @@ function AdminAbout() {
           </h1>
 
           <p className="text-gray-600 mt-3 max-w-2xl">
-            Update the information displayed on your About page.
+            Update the information displayed across your website.
           </p>
-
         </div>
+
 
         {/* Form */}
 
-        <form onSubmit={handleSubmit}>
+<form onSubmit={handleSubmit}>
 
-          <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl shadow-md overflow-hidden">
+  <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl shadow-md overflow-hidden">
 
-            {/* Description */}
+    {/* Contact Information */}
 
-            <div className="p-8 border-b border-[#ECDCC5]">
+    <div className="p-8 border-b border-[#ECDCC5]">
 
-              <h2 className="font-serif text-3xl text-[#2F120F]">
-                About
-              </h2>
+      <h2 className="font-serif text-3xl text-[#2F120F]">
+        Contact Information
+      </h2>
 
-              <p className="text-sm text-gray-500 mt-1 mb-6">
-                Your main introduction and background.
-              </p>
+      <p className="text-sm text-gray-500 mt-1 mb-6">
+        Update the contact details and links displayed on the website.
+      </p>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Description
-              </label>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                rows={6}
-                placeholder="Write a short description about Pandit Kamla Prasad Bhatt..."
-                className="w-full rounded-2xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-              />
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Phone
+          </label>
 
-            </div>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="+91 9411120641"
+            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
+          />
+        </div>
 
-            {/* Milestones */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Email
+          </label>
 
-            <div className="p-8 border-b border-[#ECDCC5]">
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="example@gmail.com"
+            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
+          />
+        </div>
 
-              <h2 className="font-serif text-3xl text-[#2F120F]">
-                Key Milestones
-              </h2>
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Address
+          </label>
 
-              <p className="text-sm text-gray-500 mt-1 mb-6">
-                Add one milestone per line.
-              </p>
+          <textarea
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            rows={3}
+            placeholder="Enter complete address"
+            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
+          />
+        </div>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Milestones
-              </label>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Facebook URL
+          </label>
 
-              <textarea
-                name="milestones"
-                value={formData.milestones}
-                onChange={handleChange}
-                rows={7}
-                placeholder={`26+ years of Vedic astrology practice
-Serving clients across India
-Specialized in Kundli and Vastu`}
-                className="w-full rounded-2xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-              />
+          <input
+            type="url"
+            name="facebook"
+            value={formData.facebook}
+            onChange={handleChange}
+            placeholder="https://facebook.com/..."
+            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
+          />
+        </div>
 
-            </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Google Maps Directions
+          </label>
 
-            {/* Approach & Ethics */}
+          <input
+            type="url"
+            name="directions"
+            value={formData.directions}
+            onChange={handleChange}
+            placeholder="https://maps.google.com/..."
+            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
+          />
+        </div>
 
-            <div className="p-8">
+      </div>
 
-              <h2 className="font-serif text-3xl text-[#2F120F]">
-                Approach & Ethics
-              </h2>
+    </div>
 
-              <p className="text-sm text-gray-500 mt-1 mb-6">
-                Add each principle on a separate line.
-              </p>
 
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Approach & Ethics
-              </label>
+    {/* About */}
 
-              <textarea
-                name="approach_ethics"
-                value={formData.approach_ethics}
-                onChange={handleChange}
-                rows={7}
-                placeholder={`Traditional Vedic principles
-Honest and practical guidance
-Respect for individual beliefs`}
-                className="w-full rounded-2xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-              />
+    <div className="p-8 border-b border-[#ECDCC5]">
 
-            </div>
+      <h2 className="font-serif text-3xl text-[#2F120F]">
+        About
+      </h2>
 
-            {/* Footer */}
+      <p className="text-sm text-gray-500 mt-1 mb-6">
+        Your main introduction and background.
+      </p>
 
-            <div className="px-8 py-6 bg-[#FFF8EF] border-t border-[#ECDCC5]">
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        Description
+      </label>
 
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <textarea
+        name="description"
+        value={formData.description}
+        onChange={handleChange}
+        rows={6}
+        placeholder="Write a short description about Pandit Kamla Prasad Bhatt..."
+        className="w-full rounded-2xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
+      />
 
-                <div>
+    </div>
 
-                  {successMsg && (
-                    <p className="text-sm text-green-700">
-                      {successMsg}
-                    </p>
-                  )}
 
-                  {error && (
-                    <p className="text-sm text-red-600">
-                      {error}
-                    </p>
-                  )}
+    {/* Key Milestones */}
 
-                </div>
+    <div className="p-8 border-b border-[#ECDCC5]">
 
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="bg-[#8B1111] hover:bg-[#6D0D0D] disabled:opacity-60 text-white px-8 py-3 rounded-full font-medium transition"
-                >
-                  {saving ? "Saving..." : "Save Changes"}
-                </button>
+      <h2 className="font-serif text-3xl text-[#2F120F]">
+        Key Milestones
+      </h2>
 
-              </div>
+      <p className="text-sm text-gray-500 mt-1 mb-6">
+        Add one milestone per line.
+      </p>
 
-            </div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        Milestones
+      </label>
 
-          </div>
+      <textarea
+        name="milestones"
+        value={formData.milestones}
+        onChange={handleChange}
+        rows={7}
+        className="w-full rounded-2xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
+      />
 
-        </form>
+    </div>
+
+
+    {/* Approach & Ethics */}
+
+    <div className="p-8 border-b border-[#ECDCC5]">
+
+      <h2 className="font-serif text-3xl text-[#2F120F]">
+        Approach & Ethics
+      </h2>
+
+      <p className="text-sm text-gray-500 mt-1 mb-6">
+        Add each principle on a separate line.
+      </p>
+
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        Approach & Ethics
+      </label>
+
+      <textarea
+        name="approach_ethics"
+        value={formData.approach_ethics}
+        onChange={handleChange}
+        rows={7}
+        className="w-full rounded-2xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
+      />
+
+    </div>
+
+
+    {/* Footer */}
+
+    <div className="px-8 py-6 bg-[#FFF8EF]">
+
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+        <div>
+          {successMsg && (
+            <p className="text-sm text-green-700">
+              {successMsg}
+            </p>
+          )}
+
+          {error && (
+            <p className="text-sm text-red-600">
+              {error}
+            </p>
+          )}
+        </div>
+
+        <button
+          type="submit"
+          disabled={saving}
+          className="bg-[#8B1111] hover:bg-[#6D0D0D] disabled:opacity-60 text-white px-8 py-3 rounded-full font-medium transition"
+        >
+          {saving ? "Saving..." : "Save Changes"}
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>
 
       </div>
     </section>
