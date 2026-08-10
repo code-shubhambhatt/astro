@@ -3,3 +3,4 @@ flask-pymongo
 python-dotenv
 flask-cors
 flask-jwt-extended
+resend

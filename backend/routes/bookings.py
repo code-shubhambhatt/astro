@@ -4,7 +4,10 @@ import re
 from datetime import datetime
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from bson import ObjectId
-
+from services.email import (
+    send_booking_notification,
+    send_customer_confirmation,
+)
 bookings_bp = Blueprint("bookings", __name__)
 
 @bookings_bp.route('/api/bookings', methods=["GET"])
@@ -52,7 +55,18 @@ def create_bookings():
             "created_at" : datetime.utcnow()
         }
         mongo.db.bookings.insert_one(new_booking)
-        return {"status": "booking done sucessfully"},201
+
+        try:
+            send_booking_notification(new_booking)
+        except Exception as e:
+            print(f"Admin email notification failed: {e}")
+
+        try:
+            send_customer_confirmation(new_booking)
+        except Exception as e:
+            print(f"Customer email notification failed: {e}")
+
+        return {"status": "booking done successfully"}, 201
     except (TypeError, ValueError) as e:
         return {"error": f"Invalid field type: {str(e)}"}, 400
     except Exception as e:
