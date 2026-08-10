@@ -36,7 +36,7 @@ def send_customer_confirmation(booking):
     resend.api_key = os.getenv("RESEND_API_KEY")
 
     params = {
-        "from": "Haridwar Astro <noreply@haridwarastro.com>",
+        "from": "Astro <onboarding@resend.dev>",
         "to": [customer_email],
         "subject": "Booking Request Received - Astro",
         "html": f"""
