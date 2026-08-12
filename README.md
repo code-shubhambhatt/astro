@@ -1,11 +1,87 @@
-# Astrology Website
+# JyotishHorizon
 
-Full-stack consultation website for Pandit Kamla Prasad Bhatt built with Flask, React, and MongoDB.
+Full-stack Vedic astrology consultation platform built with React, Flask, MongoDB, JWT authentication, and Resend.
+
+The application provides a public-facing astrology consultation website along with a protected admin dashboard for managing bookings and website content.
+
+## Features
+
+### Public Website
+
+- Responsive landing page
+- About page with dynamic content
+- Vedic astrology services
+- Service detail pages
+- Testimonials
+- Testimonial submission
+- Consultation booking form
+- Booking validation
+- Contact information
+- Responsive navigation for mobile, tablet, and desktop
+
+### Admin Dashboard
+
+JWT-protected admin area with:
+
+- Dashboard
+- Booking management
+- Booking status updates
+- About/contact content management
+- Service management
+- Create and update services
+- Activate/deactivate services
+- Testimonial management
+- Edit testimonials
+- Show/hide testimonials
+- Logout
+- Automatic handling of invalid authentication tokens
+
+### Booking Notifications
+
+New bookings are stored in MongoDB and trigger email notifications through Resend.
+
+The current implementation supports:
+
+- Admin booking notification
+- Customer confirmation email logic
+
+Customer-facing production email delivery will be finalized after a custom sending domain is configured in Resend.
+
+## Tech Stack
+
+### Frontend
+
+- React 19
+- Vite
+- React Router
+- Tailwind CSS
+- Lucide React
+- Native Fetch API
+
+### Backend
+
+- Python
+- Flask
+- Flask Blueprints
+- Flask-PyMongo
+- Flask-CORS
+- Flask-JWT-Extended
+- Werkzeug password hashing
+- Resend
+
+### Database
+
+- MongoDB
+- MongoDB Atlas
+
+### Authentication
+
+- JWT-based authentication
+- Protected admin routes
+- Token-based API authorization
+- Automatic logout on invalid authentication responses
 
 ## Project Structure
-
-<details>
-<summary><b>📁 Project Structure</b></summary>
 
 ```text
 astro/
@@ -13,66 +89,123 @@ astro/
 │   ├── app.py
 │   ├── config.py
 │   ├── extensions.py
-│   ├── routes/
 │   ├── requirements.txt
-│   └── .env.example
+│   ├── .env.example
+│   ├── routes/
+│   │   ├── about.py
+│   │   ├── auth.py
+│   │   ├── bookings.py
+│   │   ├── health.py
+│   │   ├── services.py
+│   │   └── testimonials.py
+│   └── services/
+│       └── email.py
 ├── frontend/
 │   ├── src/
+│   │   ├── api/
+│   │   │   ├── about.js
+│   │   │   ├── auth.js
+│   │   │   ├── bookings.js
+│   │   │   ├── client.js
+│   │   │   ├── services.js
+│   │   │   └── testimonials.js
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── public/
 │   ├── package.json
 │   └── .env.example
 └── README.md
 ```
 
-</details>
+## API
+
+### Public Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/services` | Get active services |
+| GET | `/api/services/<id>` | Get a service |
+| GET | `/api/testimonials` | Get visible testimonials |
+| POST | `/api/testimonials` | Submit a testimonial |
+| POST | `/api/bookings` | Create a consultation booking |
+| GET | `/api/about` | Get About/contact content |
+| POST | `/api/auth/login` | Authenticate admin |
+
+### Protected Endpoints
+
+These endpoints require a valid JWT.
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/bookings` | Get all bookings |
+| PUT | `/api/bookings/<id>` | Update booking status |
+| POST | `/api/services` | Create a service |
+| PUT | `/api/services/<id>` | Update a service |
+| PUT | `/api/about` | Update About/contact content |
+| PUT | `/api/testimonials/<id>` | Update testimonial |
+
+## Environment Variables
 
 ### Backend
 
-- Flask REST API (app factory pattern, Blueprints)
-- MongoDB Atlas (via PyMongo)
-- JWT Authentication (flask-jwt-extended)
-- Password hashing (werkzeug.security)
+Create `backend/.env` from `backend/.env.example` and configure the required MongoDB, JWT, email, and application settings.
 
 ### Frontend
 
-- React + Vite
-- Tailwind CSS
-- React Router
-- Native `fetch` for API calls
+Create `frontend/.env` from `frontend/.env.example` and configure:
 
-## Features
+```env
+VITE_API_BASE=http://localhost:5000/api
+```
 
-- **Services** — list and view Vedic astrology services
-- **Testimonials** — client feedback and ratings, with public submission
-- **Booking** — consultation request form with validation
-- **About** — bio, milestones, and approach/ethics content
-- **Contact** — live contact info (phone/email/address), sourced from a single admin-editable record
-- **Admin Panel** — JWT-protected dashboard for managing bookings (view all, mark completed) and editing About/contact content
-- **Responsive** — works on mobile, tablet, desktop
+Use the production backend URL when deploying.
 
-## Tech Stack
-
-**Backend:** Flask, MongoDB, PyMongo, Python  
-**Frontend:** React, Vite, Tailwind CSS  
-**Auth:** JWT (flask-jwt-extended)  
-**Deployment:** (planned)
+> Never commit `.env` files or secret credentials to Git.
 
 ## Getting Started
 
-### Backend Setup
+### Backend
 
 ```bash
 cd backend
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+```
+
+Windows:
+
+```powershell
+venv\Scripts\activate
+```
+
+Linux/macOS:
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
-cp .env.example .env
-# Edit .env with your MongoDB URI
+```
+
+Create and configure `backend/.env`, then start Flask:
+
+```bash
 python app.py
 ```
 
-Runs on `http://localhost:5000`
+Backend:
 
-### Frontend Setup
+```text
+http://localhost:5000
+```
+
+### Frontend
+
+Open another terminal:
 
 ```bash
 cd frontend
@@ -80,35 +213,143 @@ npm install
 npm run dev
 ```
 
-Runs on `http://localhost:5173`
+Frontend:
 
-## API Endpoints
+```text
+http://localhost:5173
+```
 
-**Public**
-- `GET /api/services` — list all active services
-- `GET /api/services/<id>` — get single service
-- `GET /api/testimonials` — list visible testimonials
-- `POST /api/testimonials` — submit a testimonial
-- `POST /api/bookings` — create a booking request
-- `GET /api/about` — get about/contact content
-- `POST /api/auth/login` — admin login, returns JWT
+## Admin Panel
 
-**Protected (requires JWT)**
-- `GET /api/bookings` — list all bookings
-- `PUT /api/bookings/<id>` — update booking status (`new` / `completed`)
-- `POST /api/services` — create a service
-- `PUT /api/about` — update about/contact content
+The admin panel is protected using JWT authentication.
 
-## Next Steps
+Admin routes:
 
-- [ ] Email notifications on new bookings
-- [ ] PUT/DELETE routes for Services and Testimonials (admin management)
-- [ ] Deploy (Vercel + Railway/Render)
+```text
+/dashboard
+/dashboard/about
+/dashboard/services
+/dashboard/testimonials
+```
 
-## Contributing
+Authentication flow:
 
-This is a personal project. Feedback and suggestions welcome.
+```text
+Admin Login
+    ↓
+JWT access token
+    ↓
+Protected dashboard
+    ↓
+Authenticated API requests
+    ↓
+Logout / invalid token
+    ↓
+Clear token
+    ↓
+Login page
+```
+
+## Email Notifications
+
+Booking notifications are handled through Resend.
+
+Current flow:
+
+```text
+Customer submits booking
+        ↓
+Backend validates request
+        ↓
+Booking stored in MongoDB
+        ↓
+Admin email notification
+        ↓
+Customer confirmation attempt
+```
+
+The application intentionally keeps booking creation independent from email delivery. An email failure does not invalidate an already-created booking.
+
+Production customer email delivery requires a verified sending domain in Resend.
+
+## Validation
+
+The backend validates important booking fields including:
+
+- Required fields
+- Indian 10-digit contact numbers
+- Email format
+- Booking datetime
+- Booking status
+- MongoDB ObjectIds
+- Service field types
+
+## Current Development Status
+
+### Completed
+
+- [x] Public website
+- [x] Responsive UI
+- [x] MongoDB integration
+- [x] Service management
+- [x] Testimonial management
+- [x] About/contact management
+- [x] Booking system
+- [x] Booking status management
+- [x] JWT authentication
+- [x] Protected admin routes
+- [x] Admin navigation
+- [x] Logout
+- [x] Centralized authenticated API requests
+- [x] Invalid authentication token handling
+- [x] Resend booking notifications
+- [x] Environment configuration templates
+
+### Planned
+
+- [ ] Production deployment
+- [ ] Production domain
+- [ ] Verified Resend sending domain
+- [ ] Automated backend tests
+- [ ] Frontend integration tests
+- [ ] Production monitoring and error handling
+
+## Deployment
+
+Planned architecture:
+
+```text
+React / Vite
+     ↓
+Frontend hosting
+
+Flask API
+     ↓
+Cloud server
+
+MongoDB
+     ↓
+MongoDB Atlas
+
+Email
+     ↓
+Resend
+```
+
+The application is currently being prepared for production deployment.
+
+## Future Improvements
+
+Potential future additions include:
+
+- Appointment scheduling and slot management
+- Online payments
+- AI-assisted horoscope readings
+- Analytics dashboard
+- Improved email templates
+- Automated testing and CI/CD
+- Production monitoring
 
 ## License
 
-Personal use only.
+Personal project. All rights reserved.
