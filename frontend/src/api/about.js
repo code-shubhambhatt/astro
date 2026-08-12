@@ -1,12 +1,14 @@
+import { apiFetch } from "./client"
+
 const API_BASE = import.meta.env.VITE_API_BASE
 
 export async function updateAbout(about){
-    const token = localStorage.getItem("access_token")
+    // const token = localStorage.getItem("access_token")
     const response = await fetch(`${API_BASE}/about`,{
         method:'PUT',
         headers:{
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            // "Authorization": `Bearer ${token}`
         },
         body : JSON.stringify(about)
     })

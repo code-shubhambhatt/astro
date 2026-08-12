@@ -1,3 +1,5 @@
+import { apiFetch } from "./client";
+
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 export async function getAllServices(){
@@ -10,13 +12,12 @@ export async function getAllServices(){
 }
 
 export async function createService(serviceData) {
-  const token = localStorage.getItem("access_token");
 
-  const response = await fetch(`${API_BASE}/services`, {
+  const response = await apiFetch(`${API_BASE}/services`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(serviceData),
   });
@@ -31,13 +32,13 @@ export async function createService(serviceData) {
 }
 
 export async function updateService(serviceId, serviceData) {
-  const token = localStorage.getItem("access_token");
+  // const token = localStorage.getItem("access_token");
 
-  const response = await fetch(`${API_BASE}/services/${serviceId}`, {
+  const response = await apiFetch(`${API_BASE}/services/${serviceId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(serviceData),
   });
