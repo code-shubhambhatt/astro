@@ -1,8 +1,45 @@
 # JyotishHorizon
 
-Full-stack Vedic astrology consultation platform built with React, Flask, MongoDB, JWT authentication, and Resend.
+Full-stack Vedic astrology consultation platform for Pandit Kamla Prasad Bhatt, built with React, Flask, MongoDB, JWT authentication, and Resend.
 
-The application provides a public-facing astrology consultation website along with a protected admin dashboard for managing bookings and website content.
+The application provides a public-facing astrology consultation website and a protected admin dashboard for managing bookings and website content.
+
+## Current Status
+
+The project is at the **feature-complete MVP / productionization** stage.
+
+Implemented:
+
+- Public astrology website
+- Responsive React UI
+- About/contact content
+- Services and service detail pages
+- Testimonials
+- Consultation booking
+- MongoDB persistence
+- JWT authentication
+- Protected admin dashboard
+- Booking status management
+- Admin service management
+- Admin testimonial management
+- Admin About/contact management
+- Centralized authenticated API requests
+- Invalid JWT handling and automatic logout
+- Booking email notifications through Resend
+- Blog backend API with draft/published status and slugs
+
+Still to complete:
+
+- Blog frontend
+- Blog admin UI
+- Blog DELETE endpoint
+- Automated backend tests
+- Frontend integration tests
+- Production deployment
+- Production domain
+- Verified Resend sending domain
+- Production monitoring and error handling
+- Production security hardening
 
 ## Features
 
@@ -17,7 +54,7 @@ The application provides a public-facing astrology consultation website along wi
 - Consultation booking form
 - Booking validation
 - Contact information
-- Responsive navigation for mobile, tablet, and desktop
+- Responsive navigation
 
 ### Admin Dashboard
 
@@ -33,6 +70,7 @@ JWT-protected admin area with:
 - Testimonial management
 - Edit testimonials
 - Show/hide testimonials
+- Admin navigation
 - Logout
 - Automatic handling of invalid authentication tokens
 
@@ -40,12 +78,45 @@ JWT-protected admin area with:
 
 New bookings are stored in MongoDB and trigger email notifications through Resend.
 
-The current implementation supports:
+Current flow:
 
-- Admin booking notification
-- Customer confirmation email logic
+```text
+Customer submits booking
+        ↓
+Backend validates request
+        ↓
+Booking stored in MongoDB
+        ↓
+Admin email notification
+        ↓
+Customer confirmation attempt
+```
 
-Customer-facing production email delivery will be finalized after a custom sending domain is configured in Resend.
+Customer-facing production email delivery requires a verified sending domain in Resend.
+
+Email delivery is intentionally independent of booking creation. An email failure does not invalidate an already-created booking.
+
+### Blog API
+
+The backend currently supports:
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/blogs` | Create a blog |
+| GET | `/api/blogs` | Get published blogs publicly; authenticated users can access all blogs |
+| GET | `/api/blogs/<id>` | Get a published blog publicly; authenticated users can access drafts |
+| PATCH | `/api/blogs/<id>` | Update a blog |
+
+Blog fields currently include:
+
+- `title`
+- `slug`
+- `content`
+- `status` (`draft` or `published`)
+- `created_at`
+- `updated_at`
+
+The frontend blog UI and admin blog management are not implemented yet.
 
 ## Tech Stack
 
@@ -81,6 +152,31 @@ Customer-facing production email delivery will be finalized after a custom sendi
 - Token-based API authorization
 - Automatic logout on invalid authentication responses
 
+## Architecture
+
+```text
+                    ┌─────────────────────┐
+                    │     React / Vite    │
+                    │   Public Website    │
+                    │   Admin Dashboard   │
+                    └──────────┬──────────┘
+                               │
+                               │ REST API
+                               ▼
+                    ┌─────────────────────┐
+                    │      Flask API      │
+                    │    Blueprints       │
+                    │  JWT Authentication │
+                    └──────┬───────┬──────┘
+                           │       │
+                  ┌────────┘       └────────────┐
+                  ▼                             ▼
+        ┌─────────────────┐           ┌─────────────────┐
+        │ MongoDB Atlas   │           │     Resend      │
+        │ Application Data│           │ Email Delivery  │
+        └─────────────────┘           └─────────────────┘
+```
+
 ## Project Structure
 
 ```text
@@ -94,12 +190,14 @@ astro/
 │   ├── routes/
 │   │   ├── about.py
 │   │   ├── auth.py
+│   │   ├── blogs.py
 │   │   ├── bookings.py
 │   │   ├── health.py
-│   │   ├── services.py
+│   │   └── services.py
 │   │   └── testimonials.py
 │   └── services/
 │       └── email.py
+│
 ├── frontend/
 │   ├── src/
 │   │   ├── api/
@@ -116,8 +214,11 @@ astro/
 │   ├── public/
 │   ├── package.json
 │   └── .env.example
+│
 └── README.md
 ```
+
+> The repository currently contains the backend blog route, while the frontend blog API client/pages are still pending.
 
 ## API
 
@@ -132,6 +233,8 @@ astro/
 | POST | `/api/bookings` | Create a consultation booking |
 | GET | `/api/about` | Get About/contact content |
 | POST | `/api/auth/login` | Authenticate admin |
+| GET | `/api/blogs` | Get published blogs |
+| GET | `/api/blogs/<id>` | Get a published blog |
 
 ### Protected Endpoints
 
@@ -145,24 +248,60 @@ These endpoints require a valid JWT.
 | PUT | `/api/services/<id>` | Update a service |
 | PUT | `/api/about` | Update About/contact content |
 | PUT | `/api/testimonials/<id>` | Update testimonial |
+| POST | `/api/blogs` | Create a blog |
+| GET | `/api/blogs` | Get all blogs including drafts |
+| GET | `/api/blogs/<id>` | Get a blog including drafts |
+| PATCH | `/api/blogs/<id>` | Update a blog |
+
+## Frontend Routes
+
+### Public
+
+```text
+/
+/about
+/services
+/testimonials
+/contact
+/login
+```
+
+### Protected Admin
+
+```text
+/dashboard
+/dashboard/about
+/dashboard/services
+/dashboard/testimonials
+```
+
+The blog frontend routes are not implemented yet.
 
 ## Environment Variables
 
 ### Backend
 
-Create `backend/.env` from `backend/.env.example` and configure the required MongoDB, JWT, email, and application settings.
+Create `backend/.env` from `backend/.env.example`.
+
+Configure the required:
+
+- MongoDB connection
+- JWT secret
+- Resend API key
+- Email configuration
+- Application configuration
+
+Never commit `.env` files or secret credentials.
 
 ### Frontend
 
-Create `frontend/.env` from `frontend/.env.example` and configure:
+Create `frontend/.env` from `frontend/.env.example`.
 
 ```env
 VITE_API_BASE=http://localhost:5000/api
 ```
 
-Use the production backend URL when deploying.
-
-> Never commit `.env` files or secret credentials to Git.
+Use the production backend URL after deployment.
 
 ## Getting Started
 
@@ -219,20 +358,7 @@ Frontend:
 http://localhost:5173
 ```
 
-## Admin Panel
-
-The admin panel is protected using JWT authentication.
-
-Admin routes:
-
-```text
-/dashboard
-/dashboard/about
-/dashboard/services
-/dashboard/testimonials
-```
-
-Authentication flow:
+## Admin Authentication Flow
 
 ```text
 Admin Login
@@ -250,31 +376,9 @@ Clear token
 Login page
 ```
 
-## Email Notifications
-
-Booking notifications are handled through Resend.
-
-Current flow:
-
-```text
-Customer submits booking
-        ↓
-Backend validates request
-        ↓
-Booking stored in MongoDB
-        ↓
-Admin email notification
-        ↓
-Customer confirmation attempt
-```
-
-The application intentionally keeps booking creation independent from email delivery. An email failure does not invalidate an already-created booking.
-
-Production customer email delivery requires a verified sending domain in Resend.
-
 ## Validation
 
-The backend validates important booking fields including:
+The backend validates important application data including:
 
 - Required fields
 - Indian 10-digit contact numbers
@@ -283,8 +387,10 @@ The backend validates important booking fields including:
 - Booking status
 - MongoDB ObjectIds
 - Service field types
+- Blog status
+- Blog title/content fields
 
-## Current Development Status
+## Development Progress
 
 ### Completed
 
@@ -304,43 +410,53 @@ The backend validates important booking fields including:
 - [x] Invalid authentication token handling
 - [x] Resend booking notifications
 - [x] Environment configuration templates
+- [x] Blog create API
+- [x] Blog read APIs
+- [x] Blog update API
+- [x] Blog draft/published status
+- [x] Blog slug generation
 
-### Planned
+### In Progress / Planned
 
+- [ ] Blog frontend
+- [ ] Admin blog management
+- [ ] Blog DELETE endpoint
 - [ ] Production deployment
 - [ ] Production domain
 - [ ] Verified Resend sending domain
 - [ ] Automated backend tests
 - [ ] Frontend integration tests
-- [ ] Production monitoring and error handling
+- [ ] Production monitoring
+- [ ] Production error handling
+- [ ] Production security hardening
 
-## Deployment
+## Deployment Plan
 
-Planned architecture:
+Target architecture:
 
 ```text
 React / Vite
      ↓
 Frontend hosting
-
-Flask API
+     ↓
+Flask REST API
      ↓
 Cloud server
-
-MongoDB
      ↓
 MongoDB Atlas
 
-Email
+Flask API
      ↓
 Resend
+     ↓
+Email notifications
 ```
 
 The application is currently being prepared for production deployment.
 
 ## Future Improvements
 
-Potential future additions include:
+Potential future additions:
 
 - Appointment scheduling and slot management
 - Online payments
@@ -349,6 +465,21 @@ Potential future additions include:
 - Improved email templates
 - Automated testing and CI/CD
 - Production monitoring
+- Blog SEO improvements
+- Sitemap and metadata for public blog pages
+
+## Latest Development Checkpoint
+
+Latest known GitHub commit:
+
+```text
+1390b425133914d73167954b9be92e8376038096
+feat: add blog CRUD APIs
+```
+
+The latest development work adds the backend blog API and registers the blog blueprint with the Flask application.
+
+The project should now be treated as a **full-stack productionization project**, not an initial MVP. Future development should prioritize completing the blog end-to-end, testing, deployment, and production hardening.
 
 ## License
 
