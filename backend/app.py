@@ -18,6 +18,7 @@ def create_app():
     from routes.bookings import bookings_bp
     from routes.about import about_bp
     from routes.auth import auth_bp
+    from routes.blogs import blogs_bp
         
     app.register_blueprint(health_bp)
     app.register_blueprint(services_bp)
@@ -25,6 +26,7 @@ def create_app():
     app.register_blueprint(bookings_bp)
     app.register_blueprint(about_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(blogs_bp)
 
     return app
 
