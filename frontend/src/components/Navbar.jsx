@@ -21,6 +21,7 @@ function Navbar() {
     { name: "Services", path: "/services" },
     { name: "Testimonials", path: "/testimonials" },
     { name: "Contact", path: "/contact" },
+    { name: "Blogs", path: "/blogs" },
   ];
 
   const adminLinks = [
