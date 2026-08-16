@@ -240,21 +240,25 @@ function Home() {
                   {blog.content}
                 </p>
 
-                  <button className="mt-6 text-[#8B1111] font-medium hover:text-[#6D0D0D]">
-                    Read Article →
-                  </button>
+                  <Link
+                    to={`/blogs/${blog._id}`}
+                    className="mt-7 text-[#8B1111] font-medium hover:text-[#6D0D0D] flex items-center gap-2"
+                    >
+                    Read Article
+                    <ArrowRight size={17} />
+                </Link>
                 </article>
               ))}
             </div>
           )}
           <div className="flex justify-center mt-10">
-  <Link
-    to="/blogs"
-    className="border border-[#8B1111] text-[#8B1111] hover:bg-[#FFF7EE] px-7 py-3 rounded-full transition"
-  >
-    View All Articles →
-  </Link>
-</div>
+            <Link
+              to="/blogs"
+              className="border border-[#8B1111] text-[#8B1111] hover:bg-[#FFF7EE] px-7 py-3 rounded-full transition"
+            >
+              View All Articles →
+            </Link>
+          </div>
         </div>
       </section>
     </section>
