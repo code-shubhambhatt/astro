@@ -17,30 +17,66 @@ import AdminBlogs from "./pages/AdminBlogs";
 function App() {
   return (
     <BrowserRouter>
-
-      <div className="min-h-screen bg-[#F9F1E4]">
-
+      <div className="min-h-screen bg-[#F9F1E4] flex flex-col">
         <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/testimonials" element={<Testimonials />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/dashboard/about" element={<ProtectedRoute><AdminAbout /></ProtectedRoute>} />
-          <Route path="/dashboard/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
-          <Route path="/dashboard/testimonials" element={<ProtectedRoute><AdminTestimonials /></ProtectedRoute>} />
-          <Route path="/dashboard/blogs" element={<ProtectedRoute><AdminBlogs></AdminBlogs></ProtectedRoute>} />
-          
-        </Routes>
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
 
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/dashboard/about"
+              element={
+                <ProtectedRoute>
+                  <AdminAbout />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/dashboard/services"
+              element={
+                <ProtectedRoute>
+                  <AdminServices />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/dashboard/testimonials"
+              element={
+                <ProtectedRoute>
+                  <AdminTestimonials />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/dashboard/blogs"
+              element={
+                <ProtectedRoute>
+                  <AdminBlogs />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </main>
       </div>
-
     </BrowserRouter>
   );
 }
-
 export default App;
