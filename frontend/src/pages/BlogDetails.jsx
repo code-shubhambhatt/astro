@@ -1,0 +1,146 @@
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { ArrowLeft, CalendarDays } from "lucide-react";
+import { getPublishedBlogs } from "../api/blogs";
+
+function isHindi(text) {
+  return /[\u0900-\u097F]/.test(text);
+}
+
+function BlogDetails() {
+  const { id } = useParams();
+
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadBlog() {
+      try {
+        const blogs = await getPublishedBlogs();
+
+        const foundBlog = blogs.find((item) => item._id === id);
+
+        if (!foundBlog) {
+          throw new Error("Article not found");
+        }
+
+        setBlog(foundBlog);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadBlog();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <section className="min-h-screen bg-[#F9F1E4] flex items-center justify-center">
+        <p className="text-gray-500">Loading article...</p>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="min-h-screen bg-[#F9F1E4] flex items-center justify-center px-6">
+        <div className="text-center">
+          <h1 className="font-serif text-4xl text-[#2F120F]">
+            Article not found
+          </h1>
+
+          <p className="mt-4 text-gray-600">{error}</p>
+
+          <Link
+            to="/blogs"
+            className="inline-flex items-center gap-2 mt-8 bg-[#8B1111] text-white px-6 py-3 rounded-full"
+          >
+            <ArrowLeft size={18} />
+            Back to Blog
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="min-h-screen bg-[#F9F1E4]">
+      <div className="max-w-4xl mx-auto px-6 py-16">
+        {/* Back */}
+
+        <Link
+          to="/blogs"
+          className="inline-flex items-center gap-2 text-[#8B1111] hover:text-[#6D0D0D] transition"
+        >
+          <ArrowLeft size={18} />
+          Back to Blog
+        </Link>
+
+        {/* Article Header */}
+
+        <article className="mt-10">
+          <span className="text-xs uppercase tracking-[3px] text-[#8B1111] font-semibold">
+            Vedic Astrology
+          </span>
+
+          <h1
+            className={`mt-5 text-4xl lg:text-6xl leading-tight text-[#2F120F] ${
+              isHindi(blog.title)
+                ? "font-devanagari-serif"
+                : "font-serif"
+            }`}
+          >
+            {blog.title}
+          </h1>
+
+          {/* Date */}
+
+          <div className="flex items-center gap-2 mt-6 text-gray-500">
+            <CalendarDays size={18} />
+
+            <span>
+              {blog.created_at
+                ? new Date(blog.created_at).toLocaleDateString("en-IN", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })
+                : "Published article"}
+            </span>
+          </div>
+
+          {/* Divider */}
+
+          <div className="border-t border-[#ECDCC5] mt-10 pt-10">
+            <div
+              className={`text-lg leading-9 text-[#3A2A24] whitespace-pre-line ${
+                isHindi(blog.content)
+                  ? "font-devanagari-sans"
+                  : "font-sans"
+              }`}
+            >
+              {blog.content}
+            </div>
+          </div>
+        </article>
+
+        {/* Bottom Navigation */}
+
+        <div className="border-t border-[#ECDCC5] mt-16 pt-8">
+          <Link
+            to="/blogs"
+            className="inline-flex items-center gap-2 text-[#8B1111] font-medium hover:text-[#6D0D0D]"
+          >
+            <ArrowLeft size={18} />
+            View All Articles
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default BlogDetails;
