@@ -1,9 +1,39 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2, CalendarDays, Globe } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  CalendarDays,
+  Globe,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { getPublishedBlogs } from "../api/blogs";
 
 function Home() {
+  function isHindi(text) {
+    return /[\u0900-\u097F]/.test(text);
+  }
+  const [blogs, setBlogs] = useState([]);
+  const [blogLoading, setBlogLoading] = useState(true);
+  const [blogError, setBlogError] = useState("");
+
+  useEffect(() => {
+    async function loadBlogs() {
+      try {
+        const data = await getPublishedBlogs();
+        setBlogs(data);
+      } catch (err) {
+        setBlogError(err.message);
+      } finally {
+        setBlogLoading(false);
+      }
+    }
+
+    loadBlogs();
+  }, []);
+
   return (
     <section className="bg-[#F9F1E4] overflow-hidden">
+      {/* HERO */}
       <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           {/* LEFT */}
@@ -90,7 +120,10 @@ function Home() {
               </div>
 
               <div className="bg-[#FCF6EC] rounded-3xl border border-[#ECDCC5] shadow-md p-6 text-center">
-                <CalendarDays className="mx-auto text-[#8B1111]" size={28} />
+                <CalendarDays
+                  className="mx-auto text-[#8B1111]"
+                  size={28}
+                />
 
                 <p className="mt-3 text-gray-600">By Appointment</p>
               </div>
@@ -125,22 +158,6 @@ function Home() {
                 />
               </div>
 
-              {/* Floating Experience Card */}
-
-              {/* <div className="absolute -left-8 top-16 bg-white rounded-3xl shadow-xl border border-[#ECDCC5] px-6 py-5">
-                <h3 className="font-serif text-3xl text-[#8B1111]">26+</h3>
-
-                <p className="text-gray-600 text-sm">Years Experience</p>
-              </div> */}
-
-              {/* Floating Consultation Card */}
-
-              {/* <div className="absolute -right-8 bottom-20 bg-white rounded-3xl shadow-xl border border-[#ECDCC5] px-6 py-5">
-                <h3 className="font-serif text-2xl text-[#2F120F]">Online</h3>
-
-                <p className="text-gray-600 text-sm">Worldwide Sessions</p>
-              </div> */}
-
               {/* Decorative Star */}
 
               <div className="absolute -top-6 right-10 text-6xl text-[#D5B58A] opacity-70">
@@ -156,6 +173,90 @@ function Home() {
           </div>
         </div>
       </div>
+
+      {/* BLOG SECTION */}
+
+      <section className="bg-[#FCF6EC] border-t border-[#ECDCC5]">
+        <div className="max-w-7xl mx-auto px-6 py-20">
+          {/* Heading */}
+
+          <div className="text-center max-w-2xl mx-auto">
+            <p className="uppercase tracking-[4px] text-sm font-semibold text-[#8B1111]">
+              From the Blog
+            </p>
+
+            <h2 className="mt-3 font-serif text-4xl lg:text-5xl text-[#2F120F]">
+              Latest from the Blog
+            </h2>
+
+            <p className="mt-4 text-[#5A4A42] leading-7">
+              Insights and guidance on Vedic astrology, spirituality and
+              everyday life.
+            </p>
+          </div>
+
+          {/* Blog States */}
+
+          {blogLoading ? (
+            <div className="mt-12 text-center text-gray-500">
+              Loading articles...
+            </div>
+          ) : blogError ? (
+            <div className="mt-12 text-center text-red-600">
+              {blogError}
+            </div>
+          ) : blogs.length === 0 ? (
+            <div className="mt-12 text-center text-gray-500">
+              No articles available yet.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+              {blogs.slice(0, 3).map((blog) => (
+                <article
+                  key={blog._id}
+                  className="bg-white border border-[#ECDCC5] rounded-3xl p-7 shadow-md"
+                >
+                  <span className="text-xs uppercase tracking-[2px] text-[#8B1111] font-semibold">
+                    Vedic Astrology
+                  </span>
+
+                <h3
+                  className={`mt-4 text-2xl text-[#2F120F] ${
+                    isHindi(blog.title)
+                      ? "font-devanagari-serif"
+                      : "font-serif"
+                  }`}
+                >
+                  {blog.title}
+                </h3>
+
+                <p
+                  className={`mt-4 leading-7 line-clamp-3 ${
+                    isHindi(blog.content)
+                      ? "font-devanagari-sans"
+                      : "font-sans"
+                  }`}
+                >
+                  {blog.content}
+                </p>
+
+                  <button className="mt-6 text-[#8B1111] font-medium hover:text-[#6D0D0D]">
+                    Read Article →
+                  </button>
+                </article>
+              ))}
+            </div>
+          )}
+          <div className="flex justify-center mt-10">
+  <Link
+    to="/blogs"
+    className="border border-[#8B1111] text-[#8B1111] hover:bg-[#FFF7EE] px-7 py-3 rounded-full transition"
+  >
+    View All Articles →
+  </Link>
+</div>
+        </div>
+      </section>
     </section>
   );
 }

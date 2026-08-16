@@ -19,7 +19,13 @@ export async function getAllBlogs() {
 }
 
 export async function getPublishedBlogs() {
-  const response = await fetch(`/blogs`);
+//   const url = `${API_BASE}/blogs`;
+
+//   console.log("API_BASE:", API_BASE);
+//   console.log("PUBLISHED BLOG URL:", url);
+
+  const response = await fetch(`${API_BASE}/blogs`);
+
 
   const data = await response.json();
 

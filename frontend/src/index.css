@@ -1,8 +1,21 @@
 @import "tailwindcss";
+
 :root {
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
+
+  --font-devanagari-serif: "Noto Serif Devanagari", serif;
+  --font-devanagari-sans: "Hind", sans-serif;
 }
+
+.font-devanagari-serif {
+  font-family: var(--font-devanagari-serif);
+}
+
+.font-devanagari-sans {
+  font-family: var(--font-devanagari-sans);
+}
+
 html,
 body,
 #root {
