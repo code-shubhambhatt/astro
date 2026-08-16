@@ -1,0 +1,89 @@
+import { useEffect, useState } from "react";
+import { getAllBlogs } from "../api/blogs";
+
+function AdminBlogs() {
+  const [blogs, setBlogs] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  async function loadBlogs() {
+    try {
+      setLoading(true);
+      setError("");
+
+      const data = await getAllBlogs();
+
+      setBlogs(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    loadBlogs();
+  }, []);
+  console.log("ADMIN BLOGS STATE:", blogs);
+  console.log("ADMIN BLOGS IS ARRAY:", Array.isArray(blogs));
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#F9F1E4] flex items-center justify-center">
+        <p className="text-gray-500">Loading blogs...</p>
+      </div>
+    );
+  }
+  return (
+    <section className="min-h-screen bg-[#F9F1E4]">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="mb-10">
+          <p className="uppercase tracking-[4px] text-sm font-semibold text-[#8B1111]">
+            Admin Panel
+          </p>
+
+          <h1 className="font-serif text-5xl text-[#2F120F] mt-3">
+            Manage Blogs
+          </h1>
+
+          <p className="text-gray-600 mt-3">
+            Create, edit and manage your astrology articles.
+          </p>
+        </div>
+
+        {error && <p className="text-sm text-red-600 mb-6">{error}</p>}
+
+        <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl shadow-md overflow-hidden">
+          <div className="px-7 py-6 border-b border-[#ECDCC5]">
+            <h2 className="font-serif text-3xl text-[#2F120F]">
+              Existing Blogs
+            </h2>
+          </div>
+
+          {blogs.length === 0 ? (
+            <div className="p-10 text-center text-gray-500">
+              No blogs found.
+            </div>
+          ) : (
+            <div className="divide-y divide-[#ECDCC5]">
+              {blogs.map((blog) => (
+                <div key={blog._id} className="px-7 py-6">
+                  <h3 className="font-serif text-2xl text-[#2F120F]">
+                    {blog.title}
+                  </h3>
+
+                  <p className="text-sm text-gray-500 mt-2">{blog.slug}</p>
+
+                  <span className="inline-block mt-3 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                    {blog.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default AdminBlogs;

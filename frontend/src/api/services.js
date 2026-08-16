@@ -13,7 +13,7 @@ export async function getAllServices(){
 
 export async function createService(serviceData) {
 
-  const response = await apiFetch(`${API_BASE}/services`, {
+  const response = await apiFetch(`/services`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export async function createService(serviceData) {
 export async function updateService(serviceId, serviceData) {
   // const token = localStorage.getItem("access_token");
 
-  const response = await apiFetch(`${API_BASE}/services/${serviceId}`, {
+  const response = await apiFetch(`/services/${serviceId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
