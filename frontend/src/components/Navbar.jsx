@@ -29,6 +29,7 @@ function Navbar() {
     { name: "About", path: "/dashboard/about" },
     { name: "Services", path: "/dashboard/services" },
     { name: "Testimonials", path: "/dashboard/testimonials" },
+    { name: "Blogs", path: "/dashboard/blogs" },
   ];
 
   const activeLinks = isAdmin ? adminLinks : links;
