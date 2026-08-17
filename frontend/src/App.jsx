@@ -16,6 +16,9 @@ import AdminTestimonials from "./pages/AdminTestimonials";
 import AdminBlogs from "./pages/AdminBlogs";
 import Blogs from "./pages/Blogs";
 import BlogDetails from "./pages/BlogDetails";
+import CreateBlog from "./pages/CreateBlog";
+import AdminBlogDetails from "./pages/AdminBlogDetails";
+import EditBlog from "./pages/EditBlog";
 
 function App() {
   return (
@@ -33,12 +36,16 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:id" element={<BlogDetails />} />
+          
+          <Route path="/blogs/:id/edit" element={<EditBlog />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/dashboard/about" element={<ProtectedRoute><AdminAbout /></ProtectedRoute>} />
           <Route path="/dashboard/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
           <Route path="/dashboard/testimonials" element={<ProtectedRoute><AdminTestimonials /></ProtectedRoute>} />
-          <Route path="/dashboard/blogs" element={<ProtectedRoute><AdminBlogs></AdminBlogs></ProtectedRoute>} />
+          <Route path="/dashboard/blogs" element={<ProtectedRoute><AdminBlogs/></ProtectedRoute>} />
+          <Route path="/dashboard/blogs/create" element={<ProtectedRoute><CreateBlog/></ProtectedRoute>} />
+          <Route path="/dashboard/blogs/:id" element={<ProtectedRoute><AdminBlogDetails /></ProtectedRoute>} />
+          <Route path="/dashboard/blogs/:id/edit" element={<ProtectedRoute><EditBlog /></ProtectedRoute>} />
           
         </Routes>
 
