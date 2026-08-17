@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllBlogs } from "../api/blogs";
+import { Link } from "react-router-dom";
+import { Eye } from "lucide-react";
 
 function AdminBlogs() {
   const [blogs, setBlogs] = useState([]);
@@ -21,11 +23,11 @@ function AdminBlogs() {
       setLoading(false);
     }
   }
+
   useEffect(() => {
     loadBlogs();
   }, []);
-  console.log("ADMIN BLOGS STATE:", blogs);
-  console.log("ADMIN BLOGS IS ARRAY:", Array.isArray(blogs));
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F9F1E4] flex items-center justify-center">
@@ -33,6 +35,7 @@ function AdminBlogs() {
       </div>
     );
   }
+
   return (
     <section className="min-h-screen bg-[#F9F1E4]">
       <div className="max-w-6xl mx-auto px-6 py-12">
@@ -53,10 +56,17 @@ function AdminBlogs() {
         {error && <p className="text-sm text-red-600 mb-6">{error}</p>}
 
         <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl shadow-md overflow-hidden">
-          <div className="px-7 py-6 border-b border-[#ECDCC5]">
+          <div className="px-7 py-6 border-b border-[#ECDCC5] flex items-center justify-between">
             <h2 className="font-serif text-3xl text-[#2F120F]">
               Existing Blogs
             </h2>
+
+            <Link
+              to="/dashboard/blogs/create"
+              className="px-5 py-3 rounded-xl bg-[#8B1111] text-white hover:bg-[#6F0D0D] transition"
+            >
+              Create Blog
+            </Link>
           </div>
 
           {blogs.length === 0 ? (
@@ -66,16 +76,31 @@ function AdminBlogs() {
           ) : (
             <div className="divide-y divide-[#ECDCC5]">
               {blogs.map((blog) => (
-                <div key={blog._id} className="px-7 py-6">
-                  <h3 className="font-serif text-2xl text-[#2F120F]">
-                    {blog.title}
-                  </h3>
+                <div
+                  key={blog._id}
+                  className="px-7 py-6 flex items-center justify-between gap-6"
+                >
+                  <div>
+                    <h3 className="font-serif text-2xl text-[#2F120F]">
+                      {blog.title}
+                    </h3>
 
-                  <p className="text-sm text-gray-500 mt-2">{blog.slug}</p>
+                    <p className="text-sm text-gray-500 mt-2">
+                      {blog.slug}
+                    </p>
 
-                  <span className="inline-block mt-3 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-                    {blog.status}
-                  </span>
+                    <span className="inline-block mt-3 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                      {blog.status}
+                    </span>
+                  </div>
+
+                  <Link
+                    to={`/dashboard/blogs/${blog._id}`}
+                    className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#DCCAB0] text-[#2F120F] hover:bg-[#F3E8D6] transition"
+                  >
+                    <Eye size={17} />
+                    Read
+                  </Link>
                 </div>
               ))}
             </div>
