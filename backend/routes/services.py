@@ -7,17 +7,20 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 services_bp = Blueprint("services", __name__)
 
-@services_bp.route("/api/services" ,methods= ["GET"])
+@services_bp.route("/api/services", methods=["GET"])
+@jwt_required(optional=True)
 def services():
+    identity = get_jwt_identity()
+    query = {} if identity is not None else {"is_active": True}
     try: 
-        active_services = mongo.db.services.find({"is_active": True}).sort("display_order",1)
+        matched_services = mongo.db.services.find(query).sort("display_order", 1)
         service_list = []
-        for service in active_services:
+        for service in matched_services:
             service["_id"] = str(service["_id"])    
             service_list.append(service)
         return {"services": service_list}, 200
-    except Exception as e :
-        return { "error" : str(e)}, 500
+    except Exception as e:
+        return {"error": str(e)}, 500
     
 @services_bp.route("/api/services/<id>", methods= ["GET"])
 def get_service(id):

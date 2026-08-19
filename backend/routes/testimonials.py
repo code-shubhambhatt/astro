@@ -1,22 +1,25 @@
-from flask import Blueprint,request
+from flask import Blueprint, request
 from extensions import mongo
 from bson import ObjectId
-from datetime import datetime
+from datetime import datetime, timezone
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 testimonials_bp = Blueprint("testimonials", __name__)
 
 @testimonials_bp.route("/api/testimonials", methods=["GET"])
+@jwt_required(optional=True)
 def testimonials():
+    identity = get_jwt_identity()
+    query = {} if identity is not None else {"is_visible": True}
     try:
-        testimonials = mongo.db.testimonials.find({"is_visible": True}).sort("created_at",-1)
+        matched_testimonials = mongo.db.testimonials.find(query).sort("created_at", -1)
         testimonial_list = []
-        for testimonial in testimonials:
+        for testimonial in matched_testimonials:
             testimonial["_id"] = str(testimonial["_id"])
             testimonial_list.append(testimonial)
-        return {"testimonials": testimonial_list    }, 200
-    except Exception as e :
+        return {"testimonials": testimonial_list}, 200
+    except Exception as e:
         return {"error": str(e)}, 500
     
 @testimonials_bp.route("/api/testimonials", methods=["POST"])
@@ -26,20 +29,20 @@ def create_testimonial():
         return {"error": "No data provided"}, 400
     required = ["client_name", "service_type", "quote"]
     missing = [ f for f in required if not data.get(f)]
-    if missing :
+    if missing:
         return {"error": f"missing required fields {missing}"}, 400
-    try :
+    try:
         new_testimonial = {
             "client_name": data.get("client_name"),
             "service_type": data.get("service_type"),
             "client_occupation": data.get("client_occupation"),
             "quote": data.get("quote"),
             "rating": int(data.get("rating", 5)),
-            "created_at": datetime.utcnow(),
-            "is_visible" : True,
+            "created_at": datetime.now(timezone.utc),
+            "is_visible": True,
         }
         mongo.db.testimonials.insert_one(new_testimonial)
-        return {"status": "testimonial created sucessfully"}, 201
+        return {"status": "testimonial created successfully"}, 201
 
     except (TypeError, ValueError) as e:
         return {"error": f"Invalid field type: {str(e)}"}, 400

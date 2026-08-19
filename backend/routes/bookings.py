@@ -1,7 +1,7 @@
-from flask import Blueprint , request
+from flask import Blueprint, request
 from extensions import mongo
 import re 
-from datetime import datetime
+from datetime import datetime, timezone
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from bson import ObjectId
 from services.email import (
@@ -14,24 +14,24 @@ bookings_bp = Blueprint("bookings", __name__)
 @jwt_required()
 def get_bookings():
     try:
-        bookings = mongo.db.bookings.find({}).sort("created_at",-1)
+        bookings = mongo.db.bookings.find({}).sort("created_at", -1)
         booking_list = []
-        for booking in bookings :
+        for booking in bookings:
             booking["_id"] = str(booking["_id"])
             booking_list.append(booking)
-        return { "bookings" : booking_list}, 200
-    except Exception as e :
-        return { "error" : str(e)}, 500
+        return {"bookings": booking_list}, 200
+    except Exception as e:
+        return {"error": str(e)}, 500
 
 @bookings_bp.route("/api/bookings", methods=["POST"])
 def create_bookings():
     data = request.get_json()
     if not data:
         return {"error": "No data provided"}, 400
-    required = ["name", "phone" , "service_interested", "preferred_datetime"]
-    missing = [ f for f in required if not data.get(f)]
+    required = ["name", "phone", "service_interested", "preferred_datetime"]
+    missing = [f for f in required if not data.get(f)]
     if missing:
-        return {"error": f"{missing[0]} field is required"},400
+        return {"error": f"{missing[0]} field is required"}, 400
     
     phone = data.get("phone").strip()
     if not re.fullmatch(r"[6-9]\d{9}", phone):
@@ -42,17 +42,18 @@ def create_bookings():
         if not re.fullmatch(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", email):
             return {"error": "Invalid email address"}, 400
 
-    try :
+    try:
         new_booking = {
-            "name" : str(data.get("name")),
-            "phone" : str(data.get("phone")),
-            "email" : str(data.get("email","")),
-            "service_interested" : str(data.get("service_interested")),
+            "name": str(data.get("name")),
+            "phone": str(data.get("phone")),
+            "email": str(data.get("email", "")),
+            "service_interested": str(data.get("service_interested")),
             "preferred_datetime": datetime.fromisoformat(
                 data.get("preferred_datetime")
-            ),            "message" : str(data.get("message", "")),
-            "status" : "new",
-            "created_at" : datetime.utcnow()
+            ),
+            "message": str(data.get("message", "")),
+            "status": "new",
+            "created_at": datetime.now(timezone.utc)
         }
         mongo.db.bookings.insert_one(new_booking)
 

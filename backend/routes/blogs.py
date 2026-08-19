@@ -148,9 +148,23 @@ def update_blog(id):
             {"_id": ObjectId(id)},
             {"$set": updates  }    
         )
-        if result.matched_count ==0 :
+        if result.matched_count == 0:
             return {"error": "Blog not found"}, 404
-        return {"status": "blog updated sucessfully"}, 200
+        return {"status": "blog updated successfully"}, 200
         
-    except Exception as e :
-        return {"error": str(e)},500
+    except Exception as e:
+        return {"error": str(e)}, 500
+
+@blogs_bp.route("/api/blogs/<id>", methods=["DELETE"])
+@jwt_required()
+def delete_blog(id):
+    if not ObjectId.is_valid(id):
+        return {"error": "Invalid id"}, 400
+
+    try:
+        result = mongo.db.blogs.delete_one({"_id": ObjectId(id)})
+        if result.deleted_count == 0:
+            return {"error": "Blog not found"}, 404
+        return {"status": "Blog deleted successfully"}, 200
+    except Exception as e:
+        return {"error": str(e)}, 500
