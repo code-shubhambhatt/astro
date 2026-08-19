@@ -26,13 +26,10 @@ Implemented:
 - Centralized authenticated API requests
 - Invalid JWT handling and automatic logout
 - Booking email notifications through Resend
-- Blog backend API with draft/published status and slugs
+- Full Blog system (API + public articles + admin CRUD management with DELETE)
 
 Still to complete:
 
-- Blog frontend
-- Blog admin UI
-- Blog DELETE endpoint
 - Automated backend tests
 - Frontend integration tests
 - Production deployment
@@ -49,6 +46,7 @@ Still to complete:
 - About page with dynamic content
 - Vedic astrology services
 - Service detail pages
+- Vedic astrology blog articles & details
 - Testimonials
 - Testimonial submission
 - Consultation booking form
@@ -64,12 +62,9 @@ JWT-protected admin area with:
 - Booking management
 - Booking status updates
 - About/contact content management
-- Service management
-- Create and update services
-- Activate/deactivate services
-- Testimonial management
-- Edit testimonials
-- Show/hide testimonials
+- Service management (Create, Update, Activate/Deactivate)
+- Testimonial management (Edit, Show/Hide)
+- Blog management (Create, Read, Edit, Delete, Draft/Publish)
 - Admin navigation
 - Logout
 - Automatic handling of invalid authentication tokens
@@ -98,7 +93,7 @@ Email delivery is intentionally independent of booking creation. An email failur
 
 ### Blog API
 
-The backend currently supports:
+The backend supports full CRUD operations:
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -106,8 +101,9 @@ The backend currently supports:
 | GET | `/api/blogs` | Get published blogs publicly; authenticated users can access all blogs |
 | GET | `/api/blogs/<id>` | Get a published blog publicly; authenticated users can access drafts |
 | PATCH | `/api/blogs/<id>` | Update a blog |
+| DELETE | `/api/blogs/<id>` | Delete a blog (admin only) |
 
-Blog fields currently include:
+Blog fields include:
 
 - `title`
 - `slug`
@@ -115,8 +111,6 @@ Blog fields currently include:
 - `status` (`draft` or `published`)
 - `created_at`
 - `updated_at`
-
-The frontend blog UI and admin blog management are not implemented yet.
 
 ## Tech Stack
 
@@ -252,6 +246,7 @@ These endpoints require a valid JWT.
 | GET | `/api/blogs` | Get all blogs including drafts |
 | GET | `/api/blogs/<id>` | Get a blog including drafts |
 | PATCH | `/api/blogs/<id>` | Update a blog |
+| DELETE | `/api/blogs/<id>` | Delete a blog |
 
 ## Frontend Routes
 
@@ -261,6 +256,8 @@ These endpoints require a valid JWT.
 /
 /about
 /services
+/blogs
+/blogs/:id
 /testimonials
 /contact
 /login
@@ -273,9 +270,11 @@ These endpoints require a valid JWT.
 /dashboard/about
 /dashboard/services
 /dashboard/testimonials
+/dashboard/blogs
+/dashboard/blogs/create
+/dashboard/blogs/:id
+/dashboard/blogs/:id/edit
 ```
-
-The blog frontend routes are not implemented yet.
 
 ## Environment Variables
 
