@@ -29,25 +29,26 @@ function App() {
 
         <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/testimonials" element={<Testimonials />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:id" element={<BlogDetails />} />
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/dashboard/about" element={<ProtectedRoute><AdminAbout /></ProtectedRoute>} />
-          <Route path="/dashboard/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
-          <Route path="/dashboard/testimonials" element={<ProtectedRoute><AdminTestimonials /></ProtectedRoute>} />
-          <Route path="/dashboard/blogs" element={<ProtectedRoute><AdminBlogs/></ProtectedRoute>} />
-          <Route path="/dashboard/blogs/create" element={<ProtectedRoute><CreateBlog/></ProtectedRoute>} />
-          <Route path="/dashboard/blogs/:id" element={<ProtectedRoute><AdminBlogDetails /></ProtectedRoute>} />
-          <Route path="/dashboard/blogs/:id/edit" element={<ProtectedRoute><EditBlog /></ProtectedRoute>} />
-          
-        </Routes>
+        <main className="flex-1 flex flex-col">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:id" element={<BlogDetails />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/dashboard/about" element={<ProtectedRoute><AdminAbout /></ProtectedRoute>} />
+            <Route path="/dashboard/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
+            <Route path="/dashboard/testimonials" element={<ProtectedRoute><AdminTestimonials /></ProtectedRoute>} />
+            <Route path="/dashboard/blogs" element={<ProtectedRoute><AdminBlogs/></ProtectedRoute>} />
+            <Route path="/dashboard/blogs/create" element={<ProtectedRoute><CreateBlog/></ProtectedRoute>} />
+            <Route path="/dashboard/blogs/:id" element={<ProtectedRoute><AdminBlogDetails /></ProtectedRoute>} />
+            <Route path="/dashboard/blogs/:id/edit" element={<ProtectedRoute><EditBlog /></ProtectedRoute>} />
+          </Routes>
+        </main>
 
         <Footer />
 
