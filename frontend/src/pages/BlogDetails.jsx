@@ -38,7 +38,7 @@ function BlogDetails() {
 
   if (loading) {
     return (
-      <section className="min-h-screen bg-[#F9F1E4] flex items-center justify-center">
+      <section className="flex-1 min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] bg-[#F9F1E4] flex items-center justify-center">
         <p className="text-gray-500">Loading article...</p>
       </section>
     );
@@ -46,7 +46,7 @@ function BlogDetails() {
 
   if (error) {
     return (
-      <section className="min-h-screen bg-[#F9F1E4] flex items-center justify-center px-6">
+      <section className="flex-1 min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] bg-[#F9F1E4] flex items-center justify-center px-6">
         <div className="text-center">
           <h1 className="font-serif text-4xl text-[#2F120F]">
             Article not found
@@ -67,13 +67,13 @@ function BlogDetails() {
   }
 
   return (
-    <section className="min-h-screen bg-[#F9F1E4]">
-      <div className="max-w-4xl mx-auto px-6 py-16">
+    <section className="flex-1 bg-[#F9F1E4] min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
         {/* Back */}
 
         <Link
           to="/blogs"
-          className="inline-flex items-center gap-2 text-[#8B1111] hover:text-[#6D0D0D] transition"
+          className="inline-flex items-center gap-2 text-[#8B1111] hover:text-[#6D0D0D] transition text-sm sm:text-base font-medium"
         >
           <ArrowLeft size={18} />
           Back to Blog
@@ -81,13 +81,13 @@ function BlogDetails() {
 
         {/* Article Header */}
 
-        <article className="mt-10">
+        <article className="mt-8 sm:mt-10">
           <span className="text-xs uppercase tracking-[3px] text-[#8B1111] font-semibold">
             Vedic Astrology
           </span>
 
           <h1
-            className={`mt-5 text-4xl lg:text-6xl leading-tight text-[#2F120F] ${
+            className={`mt-4 sm:mt-5 text-2xl sm:text-4xl lg:text-5xl leading-tight text-[#2F120F] ${
               isHindi(blog.title)
                 ? "font-devanagari-serif"
                 : "font-serif"
@@ -98,8 +98,8 @@ function BlogDetails() {
 
           {/* Date */}
 
-          <div className="flex items-center gap-2 mt-6 text-gray-500">
-            <CalendarDays size={18} />
+          <div className="flex items-center gap-2 mt-4 sm:mt-6 text-xs sm:text-sm text-gray-500">
+            <CalendarDays size={16} />
 
             <span>
               {blog.created_at
@@ -114,9 +114,9 @@ function BlogDetails() {
 
           {/* Divider */}
 
-          <div className="border-t border-[#ECDCC5] mt-10 pt-10">
+          <div className="border-t border-[#ECDCC5] mt-8 sm:mt-10 pt-8 sm:pt-10">
             <div
-              className={`text-lg leading-9 text-[#3A2A24] whitespace-pre-line ${
+              className={`text-base sm:text-lg leading-7 sm:leading-9 text-[#3A2A24] whitespace-pre-line ${
                 isHindi(blog.content)
                   ? "font-devanagari-sans"
                   : "font-sans"
@@ -129,10 +129,10 @@ function BlogDetails() {
 
         {/* Bottom Navigation */}
 
-        <div className="border-t border-[#ECDCC5] mt-16 pt-8">
+        <div className="border-t border-[#ECDCC5] mt-12 sm:mt-16 pt-6 sm:pt-8">
           <Link
             to="/blogs"
-            className="inline-flex items-center gap-2 text-[#8B1111] font-medium hover:text-[#6D0D0D]"
+            className="inline-flex items-center gap-2 text-[#8B1111] font-medium hover:text-[#6D0D0D] text-sm sm:text-base"
           >
             <ArrowLeft size={18} />
             View All Articles

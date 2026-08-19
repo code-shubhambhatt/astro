@@ -66,7 +66,7 @@ function Testimonials() {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-[70vh]">
+      <div className="flex-1 flex justify-center items-center min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] bg-[#F9F1E4]">
         <p className="text-red-500">
           {error}
         </p>
@@ -75,116 +75,95 @@ function Testimonials() {
   }
 
   return (
-    <section className="bg-[#F9F1E4] h-100vh overflow-hidden">
-
-      <div className="max-w-7xl mx-auto h-full px-6 py-8 flex flex-col">
+    <section className="flex-1 bg-[#F9F1E4] min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] py-10 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Heading */}
 
-        <div className="text-center mb-8 shrink-0">
-
-          <p className="uppercase tracking-[4px] text-[#7C1111] text-sm font-semibold">
+        <div className="text-center mb-10 sm:mb-14">
+          <p className="uppercase tracking-[4px] text-[#7C1111] text-xs sm:text-sm font-semibold">
             Testimonials
           </p>
 
-          <h1 className="text-5xl font-serif text-[#2F120F] mt-2">
+          <h1 className="text-3xl sm:text-5xl font-serif text-[#2F120F] mt-2">
             What Our Clients Say
           </h1>
 
-          <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
+          <p className="text-gray-600 mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-7">
             Read genuine experiences shared by people who have
             consulted Pandit Kamla Prasad Bhatt.
           </p>
-
         </div>
 
         {/* Main Layout */}
 
-        <div className="grid lg:grid-cols-3 gap-8 flex-1 min-h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
-          {/* Left Column */}
+          {/* Left Column - List */}
 
-          <div className="lg:col-span-2 overflow-y-auto pr-3 space-y-6">
-
+          <div className="lg:col-span-2 space-y-6">
             {testimonials.length === 0 ? (
-
-              <div className="bg-white rounded-3xl shadow p-8 text-center">
-                No testimonials available.
+              <div className="bg-white rounded-3xl border border-[#ECDCC5] shadow p-8 text-center text-gray-500">
+                No testimonials available yet. Be the first to share your experience!
               </div>
-
             ) : (
-
               testimonials.map((item) => (
-
                 <div
                   key={item._id}
-                  className="bg-[#FCF6EC] rounded-3xl border border-[#ECDCC5] shadow-md p-8 hover:shadow-xl transition"
+                  className="bg-[#FCF6EC] rounded-2xl sm:rounded-3xl border border-[#ECDCC5] shadow-md p-6 sm:p-8 hover:shadow-xl transition"
                 >
-
-                  <div className="flex justify-between items-start mb-5">
-
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 sm:mb-5">
                     <div>
-
-                      <h2 className="font-serif text-3xl text-[#2F120F]">
+                      <h2 className="font-serif text-xl sm:text-2xl text-[#2F120F]">
                         {item.client_name}
                       </h2>
 
-                      <p className="text-gray-500 mt-1">
-                        {item.client_occupation}
-                      </p>
-
+                      {item.client_occupation && (
+                        <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
+                          {item.client_occupation}
+                        </p>
+                      )}
                     </div>
 
-                    <span className="bg-[#8B1111] text-white text-xs px-4 py-2 rounded-full">
+                    <span className="self-start sm:self-auto bg-[#8B1111] text-white text-xs px-3.5 py-1.5 rounded-full font-medium">
                       {item.service_type}
                     </span>
-
                   </div>
 
-                  <div className="flex gap-1 mb-5">
+                  <div className="flex gap-1 mb-4">
                     {Array.from({ length: item.rating }).map((_, index) => (
                       <span
                         key={index}
-                        className="text-yellow-500 text-xl"
+                        className="text-yellow-500 text-lg"
                       >
                         ★
                       </span>
                     ))}
                   </div>
 
-                  <p className="italic text-gray-700 text-xl leading-9">
+                  <p className="italic text-gray-700 text-base sm:text-lg leading-7 sm:leading-8">
                     "{item.quote}"
                   </p>
-
                 </div>
-
               ))
-
             )}
-
           </div>
-                    {/* Right Column */}
 
-          <div className="h-full">
+          {/* Right Column - Form */}
 
-            <div className="sticky top-6 bg-white rounded-3xl border border-[#ECDCC5] shadow-lg p-8">
-
-              <h2 className="font-serif text-4xl text-[#2F120F] mb-2">
+          <div className="w-full lg:sticky lg:top-24">
+            <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#ECDCC5] shadow-lg p-6 sm:p-8">
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#2F120F] mb-2">
                 Give Your Testimonial
               </h2>
 
-              <p className="text-gray-600 mb-8">
+              <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
                 We'd love to hear about your experience.
               </p>
 
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-5"
-              >
-
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                 <div>
-
-                  <label className="block mb-2 font-medium text-gray-700">
+                  <label className="block mb-1.5 text-xs sm:text-sm font-medium text-gray-700">
                     Full Name
                   </label>
 
@@ -194,15 +173,13 @@ function Testimonials() {
                     value={formData.client_name}
                     onChange={handleChange}
                     required
-                    placeholder="Your name"
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#8B1111]"
+                    placeholder="Your full name"
+                    className="w-full rounded-xl border border-gray-300 px-4 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#8B1111] text-sm sm:text-base"
                   />
-
                 </div>
 
                 <div>
-
-                  <label className="block mb-2 font-medium text-gray-700">
+                  <label className="block mb-1.5 text-xs sm:text-sm font-medium text-gray-700">
                     Occupation
                   </label>
 
@@ -211,15 +188,13 @@ function Testimonials() {
                     name="client_occupation"
                     value={formData.client_occupation}
                     onChange={handleChange}
-                    required
                     placeholder="Your occupation"
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#8B1111]"
+                    className="w-full rounded-xl border border-gray-300 px-4 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#8B1111] text-sm sm:text-base"
                   />
-
                 </div>
-                <div>
 
-                  <label className="block mb-2 font-medium text-gray-700">
+                <div>
+                  <label className="block mb-1.5 text-xs sm:text-sm font-medium text-gray-700">
                     Service Taken
                   </label>
 
@@ -229,15 +204,13 @@ function Testimonials() {
                     value={formData.service_type}
                     onChange={handleChange}
                     required
-                    placeholder="Service taken"
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#8B1111]"
+                    placeholder="E.g., Kundli Reading"
+                    className="w-full rounded-xl border border-gray-300 px-4 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#8B1111] text-sm sm:text-base"
                   />
-
                 </div>
 
                 <div>
-
-                  <label className="block mb-2 font-medium text-gray-700">
+                  <label className="block mb-1.5 text-xs sm:text-sm font-medium text-gray-700">
                     Rating
                   </label>
 
@@ -245,53 +218,46 @@ function Testimonials() {
                     name="rating"
                     value={formData.rating}
                     onChange={handleChange}
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#8B1111]"
+                    className="w-full rounded-xl border border-gray-300 px-4 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#8B1111] text-sm sm:text-base"
                   >
-                    <option value={5}>★★★★★ (5)</option>
-                    <option value={4}>★★★★☆ (4)</option>
-                    <option value={3}>★★★☆☆ (3)</option>
-                    <option value={2}>★★☆☆☆ (2)</option>
-                    <option value={1}>★☆☆☆☆ (1)</option>
+                    <option value={5}>★★★★★ (5 Stars)</option>
+                    <option value={4}>★★★★☆ (4 Stars)</option>
+                    <option value={3}>★★★☆☆ (3 Stars)</option>
+                    <option value={2}>★★☆☆☆ (2 Stars)</option>
+                    <option value={1}>★☆☆☆☆ (1 Star)</option>
                   </select>
-
                 </div>
 
                 <div>
-
-                  <label className="block mb-2 font-medium text-gray-700">
+                  <label className="block mb-1.5 text-xs sm:text-sm font-medium text-gray-700">
                     Your Experience
                   </label>
 
                   <textarea
-                    rows={7}
+                    rows={5}
                     name="quote"
                     value={formData.quote}
                     onChange={handleChange}
                     required
-                    placeholder="Share your experience..."
-                    className="w-full rounded-xl border border-gray-300 px-4 py-3 resize-none outline-none focus:ring-2 focus:ring-[#8B1111]"
+                    placeholder="Share your consultation experience..."
+                    className="w-full rounded-xl border border-gray-300 px-4 py-2.5 sm:py-3 resize-none outline-none focus:ring-2 focus:ring-[#8B1111] text-sm sm:text-base"
                   />
-
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-[#8B1111] hover:bg-[#6D0D0D] text-white py-3 rounded-full font-medium transition"
+                  className="w-full bg-[#8B1111] hover:bg-[#6D0D0D] text-white py-3 rounded-full font-medium transition text-sm sm:text-base shadow-md"
                 >
                   Submit Testimonial
                 </button>
-
               </form>
-
             </div>
-
           </div>
 
         </div>
 
       </div>
-
-    </section>  
+    </section>
   );
 }
 
