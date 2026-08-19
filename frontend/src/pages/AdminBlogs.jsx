@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { getAllBlogs } from "../api/blogs";
+import { getAllBlogs, deleteBlog } from "../api/blogs";
 import { Link } from "react-router-dom";
-import { Eye } from "lucide-react";
+import { Eye, Trash2 } from "lucide-react";
 
 function AdminBlogs() {
   const [blogs, setBlogs] = useState([]);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deletingId, setDeletingId] = useState(null);
 
   async function loadBlogs() {
     try {
@@ -27,6 +27,21 @@ function AdminBlogs() {
   useEffect(() => {
     loadBlogs();
   }, []);
+
+  async function handleDelete(id, title) {
+    const confirmed = window.confirm(`Are you sure you want to delete "${title}"?`);
+    if (!confirmed) return;
+
+    try {
+      setDeletingId(id);
+      await deleteBlog(id);
+      setBlogs((prev) => prev.filter((b) => b._id !== id));
+    } catch (err) {
+      alert("Failed to delete blog: " + err.message);
+    } finally {
+      setDeletingId(null);
+    }
+  }
 
   if (loading) {
     return (
@@ -94,13 +109,25 @@ function AdminBlogs() {
                     </span>
                   </div>
 
-                  <Link
-                    to={`/dashboard/blogs/${blog._id}`}
-                    className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#DCCAB0] text-[#2F120F] hover:bg-[#F3E8D6] transition"
-                  >
-                    <Eye size={17} />
-                    Read
-                  </Link>
+                  <div className="shrink-0 flex items-center gap-3">
+                    <Link
+                      to={`/dashboard/blogs/${blog._id}`}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#DCCAB0] text-[#2F120F] hover:bg-[#F3E8D6] transition"
+                    >
+                      <Eye size={17} />
+                      Read
+                    </Link>
+
+                    <button
+                      onClick={() => handleDelete(blog._id, blog.title)}
+                      disabled={deletingId === blog._id}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-red-200 text-red-700 hover:bg-red-50 transition disabled:opacity-50"
+                      title="Delete blog"
+                    >
+                      <Trash2 size={17} />
+                      {deletingId === blog._id ? "Deleting..." : "Delete"}
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -111,4 +138,4 @@ function AdminBlogs() {
   );
 }
 
-export default AdminBlogs;
+export default AdminBlogs;

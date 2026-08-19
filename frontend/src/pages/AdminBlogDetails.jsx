@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, CalendarDays, Edit } from "lucide-react";
-import { getBlogById } from "../api/blogs";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { ArrowLeft, CalendarDays, Edit, Trash2 } from "lucide-react";
+import { getBlogById, deleteBlog } from "../api/blogs";
 
 function isHindi(text) {
   return /[\u0900-\u097F]/.test(text);
@@ -9,9 +9,11 @@ function isHindi(text) {
 
 function AdminBlogDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -32,6 +34,21 @@ function AdminBlogDetails() {
 
     loadBlog();
   }, [id]);
+
+  async function handleDelete() {
+    if (!blog) return;
+    const confirmed = window.confirm(`Are you sure you want to delete "${blog.title}"?`);
+    if (!confirmed) return;
+
+    try {
+      setDeleting(true);
+      await deleteBlog(blog._id);
+      navigate("/dashboard/blogs");
+    } catch (err) {
+      alert("Failed to delete blog: " + err.message);
+      setDeleting(false);
+    }
+  }
 
   if (loading) {
     return (
@@ -80,13 +97,24 @@ function AdminBlogDetails() {
             Back to Blogs
           </Link>
 
-          <Link
-            to={`/dashboard/blogs/${blog._id}/edit`}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#DCCAB0] text-[#2F120F] hover:bg-[#F3E8D6] transition"
-          >
-            <Edit size={17} />
-            Edit
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              to={`/dashboard/blogs/${blog._id}/edit`}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#DCCAB0] text-[#2F120F] hover:bg-[#F3E8D6] transition"
+            >
+              <Edit size={17} />
+              Edit
+            </Link>
+
+            <button
+              onClick={handleDelete}
+              disabled={deleting}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-red-200 text-red-700 hover:bg-red-50 transition disabled:opacity-50"
+            >
+              <Trash2 size={17} />
+              {deleting ? "Deleting..." : "Delete"}
+            </button>
+          </div>
         </div>
 
         {/* Article */}

@@ -19,6 +19,7 @@ import BlogDetails from "./pages/BlogDetails";
 import CreateBlog from "./pages/CreateBlog";
 import AdminBlogDetails from "./pages/AdminBlogDetails";
 import EditBlog from "./pages/EditBlog";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -36,8 +37,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/blogs" element={<Blogs />} />
-          
-          <Route path="/blogs/:id/edit" element={<EditBlog />} />
+          <Route path="/blogs/:id" element={<BlogDetails />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/dashboard/about" element={<ProtectedRoute><AdminAbout /></ProtectedRoute>} />
           <Route path="/dashboard/services" element={<ProtectedRoute><AdminServices /></ProtectedRoute>} />
@@ -48,6 +48,8 @@ function App() {
           <Route path="/dashboard/blogs/:id/edit" element={<ProtectedRoute><EditBlog /></ProtectedRoute>} />
           
         </Routes>
+
+        <Footer />
 
       </div>
 

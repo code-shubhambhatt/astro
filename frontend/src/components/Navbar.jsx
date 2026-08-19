@@ -19,9 +19,9 @@ function Navbar() {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Services", path: "/services" },
+    { name: "Blogs", path: "/blogs" },
     { name: "Testimonials", path: "/testimonials" },
     { name: "Contact", path: "/contact" },
-    { name: "Blogs", path: "/blogs" },
   ];
 
   const adminLinks = [

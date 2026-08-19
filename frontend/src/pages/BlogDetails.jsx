@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, CalendarDays } from "lucide-react";
-import { getPublishedBlogs } from "../api/blogs";
+import { getBlogById } from "../api/blogs";
 
 function isHindi(text) {
   return /[\u0900-\u097F]/.test(text);
@@ -17,17 +17,17 @@ function BlogDetails() {
   useEffect(() => {
     async function loadBlog() {
       try {
-        const blogs = await getPublishedBlogs();
+        setLoading(true);
+        setError("");
+        const data = await getBlogById(id);
 
-        const foundBlog = blogs.find((item) => item._id === id);
-
-        if (!foundBlog) {
+        if (!data) {
           throw new Error("Article not found");
         }
 
-        setBlog(foundBlog);
+        setBlog(data);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Article not found");
       } finally {
         setLoading(false);
       }
