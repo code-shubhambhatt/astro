@@ -1,29 +1,27 @@
-import { apiFetch } from "./client"
+import { apiFetch } from "./client";
 
-const API_BASE = import.meta.env.VITE_API_BASE
-
-export async function updateAbout(about){
-    // const token = localStorage.getItem("access_token")
-    const response = await fetch(`${API_BASE}/about`,{
-        method:'PUT',
-        headers:{
+export async function updateAbout(about) {
+    const response = await apiFetch("/about", {
+        method: "PUT",
+        headers: {
             "Content-Type": "application/json",
-            // "Authorization": `Bearer ${token}`
         },
-        body : JSON.stringify(about)
-    })
-    if (!response.ok){
-        const errorData = await response.json()
-        throw new Error(errorData.error || "Failed to update About")
-    }
-    return response.json()
-} 
+        body: JSON.stringify(about),
+    });
 
-export async function getAbout(){
-    const response = await fetch(`${API_BASE}/about`)
-    if (!response.ok){
-        throw new Error("Failed to fetch about info")
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.error || "Failed to update About");
     }
-    const data = await response.json()    
-    return data.about
+    return data;
 }
+
+export async function getAbout() {
+    const response = await apiFetch("/about");
+    if (!response.ok) {
+        throw new Error("Failed to fetch about info");
+    }
+    const data = await response.json();
+    return data.about;
+}

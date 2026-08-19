@@ -1,23 +1,19 @@
 import { apiFetch } from "./client";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
-
-export async function getAllServices(){
-    const response = await fetch(`${API_BASE}/services`);
+export async function getAllServices() {
+    const response = await apiFetch("/services");
     if (!response.ok) {
-        throw new Error("Failed to fetch services")
+        throw new Error("Failed to fetch services");
     }
-    const data = await response.json()
-    return data.services
+    const data = await response.json();
+    return data.services;
 }
 
 export async function createService(serviceData) {
-
-  const response = await apiFetch(`/services`, {
+  const response = await apiFetch("/services", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      // Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(serviceData),
   });
@@ -32,13 +28,10 @@ export async function createService(serviceData) {
 }
 
 export async function updateService(serviceId, serviceData) {
-  // const token = localStorage.getItem("access_token");
-
   const response = await apiFetch(`/services/${serviceId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      // Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(serviceData),
   });
@@ -50,4 +43,4 @@ export async function updateService(serviceId, serviceData) {
   }
 
   return data;
-}
+}

@@ -1,13 +1,14 @@
-import { apiFetch } from "./client"
+import { apiFetch } from "./client";
 
-const API_BASE = import.meta.env.VITE_API_BASE
+const API_BASE = import.meta.env.VITE_API_BASE;
 
-export async function getAllTestimonials(){
-    const response = await fetch(`${API_BASE}/testimonials`)
-    if (!response.ok )
-        throw new Error("Failed to fetch")
-    const data = await response.json()
-    return data.testimonials
+export async function getAllTestimonials() {
+    const response = await apiFetch("/testimonials");
+    if (!response.ok) {
+        throw new Error("Failed to fetch testimonials");
+    }
+    const data = await response.json();
+    return data.testimonials;
 }
 
 export async function createTestimonial(testimonialData) {
@@ -26,19 +27,13 @@ export async function createTestimonial(testimonialData) {
 }
 
 export async function updateTestimonial(testimonialId, testimonialData) {
-    // const token = localStorage.getItem("access_token");
-
-    const response = await apiFetch(
-        `${API_BASE}/testimonials/${testimonialId}`,
-        {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                // Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(testimonialData),
-        }
-    );
+    const response = await apiFetch(`/testimonials/${testimonialId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testimonialData),
+    });
 
     const data = await response.json();
 
@@ -49,4 +44,4 @@ export async function updateTestimonial(testimonialId, testimonialData) {
     }
 
     return data;
-}
+}
