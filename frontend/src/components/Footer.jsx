@@ -104,6 +104,7 @@ function Footer() {
         </div>
 
         {/* Bottom */}
+        {/* Bottom */}
         <div className="border-t border-[#5A332E] mt-10 sm:mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
 
           <p className="text-xs sm:text-sm text-[#BFA99A]">
