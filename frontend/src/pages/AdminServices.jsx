@@ -144,26 +144,26 @@ function AdminServices() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F9F1E4] flex items-center justify-center">
+      <div className="flex-1 min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] bg-[#F9F1E4] flex items-center justify-center">
         <p className="text-gray-500">Loading services...</p>
       </div>
     );
   }
 
   return (
-    <section className="min-h-screen bg-[#F9F1E4]">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+    <section className="flex-1 bg-[#F9F1E4] min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
-        <div className="mb-10">
-          <p className="uppercase tracking-[4px] text-sm font-semibold text-[#8B1111]">
+        <div className="mb-8 sm:mb-10">
+          <p className="uppercase tracking-[4px] text-xs sm:text-sm font-semibold text-[#8B1111]">
             Admin Panel
           </p>
 
-          <h1 className="font-serif text-5xl text-[#2F120F] mt-3">
+          <h1 className="font-serif text-3xl sm:text-5xl text-[#2F120F] mt-2 sm:mt-3">
             Manage Services
           </h1>
 
-          <p className="text-gray-600 mt-3">
+          <p className="text-gray-600 mt-2 sm:mt-3 text-sm sm:text-base">
             Add, edit, activate or deactivate your astrology services.
           </p>
         </div>
@@ -172,15 +172,15 @@ function AdminServices() {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl shadow-md p-8 mb-10"
+          className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-2xl sm:rounded-3xl shadow-md p-5 sm:p-8 mb-8 sm:mb-10"
         >
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-6">
             <div>
-              <h2 className="font-serif text-3xl text-[#2F120F]">
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#2F120F]">
                 {editingId ? "Edit Service" : "Add Service"}
               </h2>
 
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
                 Use the existing service schema.
               </p>
             </div>
@@ -189,14 +189,14 @@ function AdminServices() {
               <button
                 type="button"
                 onClick={resetForm}
-                className="text-sm text-gray-500 hover:text-[#8B1111]"
+                className="text-xs sm:text-sm text-gray-500 hover:text-[#8B1111] self-start sm:self-auto"
               >
                 Cancel Edit
               </button>
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -322,7 +322,7 @@ function AdminServices() {
           <button
             type="submit"
             disabled={saving}
-            className="mt-6 bg-[#8B1111] hover:bg-[#6D0D0D] disabled:opacity-60 text-white px-8 py-3 rounded-full font-medium transition"
+            className="mt-6 w-full sm:w-auto bg-[#8B1111] hover:bg-[#6D0D0D] disabled:opacity-60 text-white px-8 py-3 rounded-full font-medium transition text-sm sm:text-base shadow-sm"
           >
             {saving
               ? "Saving..."
@@ -334,20 +334,20 @@ function AdminServices() {
 
         {/* Services */}
 
-        <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl shadow-md overflow-hidden">
+        <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-2xl sm:rounded-3xl shadow-md overflow-hidden">
 
-          <div className="px-7 py-6 border-b border-[#ECDCC5]">
-            <h2 className="font-serif text-3xl text-[#2F120F]">
+          <div className="p-4 sm:px-7 sm:py-6 border-b border-[#ECDCC5]">
+            <h2 className="font-serif text-2xl sm:text-3xl text-[#2F120F]">
               Existing Services
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
               Manage your existing services.
             </p>
           </div>
 
           {services.length === 0 ? (
-            <div className="p-10 text-center text-gray-500">
+            <div className="p-8 sm:p-10 text-center text-gray-500 text-sm sm:text-base">
               No services found.
             </div>
           ) : (
@@ -356,17 +356,17 @@ function AdminServices() {
               {services.map((service) => (
                 <div
                   key={service._id}
-                  className="px-7 py-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5"
+                  className="p-4 sm:px-7 sm:py-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 sm:gap-5"
                 >
 
-                  <div>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h3 className="font-serif text-2xl text-[#2F120F]">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                      <h3 className="font-serif text-xl sm:text-2xl text-[#2F120F]">
                         {service.name}
                       </h3>
 
                       <span
-                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${
                           service.is_active
                             ? "bg-green-100 text-green-700"
                             : "bg-gray-200 text-gray-600"
@@ -376,19 +376,19 @@ function AdminServices() {
                       </span>
                     </div>
 
-                    <p className="text-sm text-gray-500 mt-2">
+                    <p className="text-xs sm:text-sm text-gray-500 mt-1 break-all">
                       {service.slug}
                     </p>
 
-                    <p className="text-gray-700 mt-2 max-w-3xl">
+                    <p className="text-gray-700 mt-2 max-w-3xl text-sm sm:text-base leading-6 sm:leading-7">
                       {service.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 mt-3">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3">
                       {service.mode?.map((mode) => (
                         <span
                           key={mode}
-                          className="bg-[#F3E5D4] text-[#8B1111] px-3 py-1 rounded-full text-xs"
+                          className="bg-[#F3E5D4] text-[#8B1111] px-2.5 py-0.5 rounded-full text-xs font-medium"
                         >
                           {mode}
                         </span>
@@ -396,18 +396,18 @@ function AdminServices() {
                     </div>
                   </div>
 
-                  <div className="flex gap-3 shrink-0">
+                  <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-start sm:self-auto">
 
                     <button
                       onClick={() => handleEdit(service)}
-                      className="border border-[#8B1111] text-[#8B1111] hover:bg-[#8B1111] hover:text-white px-5 py-2.5 rounded-full text-sm font-medium transition"
+                      className="border border-[#8B1111] text-[#8B1111] hover:bg-[#8B1111] hover:text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition"
                     >
                       Edit
                     </button>
 
                     <button
                       onClick={() => handleToggle(service)}
-                      className={`px-5 py-2.5 rounded-full text-sm font-medium transition ${
+                      className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition ${
                         service.is_active
                           ? "border border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
                           : "border border-green-600 text-green-600 hover:bg-green-600 hover:text-white"

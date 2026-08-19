@@ -52,7 +52,7 @@ function AdminBlogDetails() {
 
   if (loading) {
     return (
-      <section className="min-h-screen bg-[#F9F1E4] flex items-center justify-center">
+      <section className="flex-1 min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] bg-[#F9F1E4] flex items-center justify-center">
         <p className="text-gray-500">Loading article...</p>
       </section>
     );
@@ -60,7 +60,7 @@ function AdminBlogDetails() {
 
   if (error || !blog) {
     return (
-      <section className="min-h-screen bg-[#F9F1E4] flex items-center justify-center px-6">
+      <section className="flex-1 min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] bg-[#F9F1E4] flex items-center justify-center px-6">
         <div className="text-center">
           <h1 className="font-serif text-4xl text-[#2F120F]">
             Article not found
@@ -83,35 +83,35 @@ function AdminBlogDetails() {
   }
 
   return (
-    <section className="min-h-screen bg-[#F9F1E4]">
-      <div className="max-w-4xl mx-auto px-6 py-12">
+    <section className="flex-1 bg-[#F9F1E4] min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
         {/* Top Navigation */}
 
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <Link
             to="/dashboard/blogs"
-            className="inline-flex items-center gap-2 text-[#8B1111] hover:text-[#6D0D0D] transition"
+            className="inline-flex items-center gap-2 text-[#8B1111] hover:text-[#6D0D0D] transition text-sm sm:text-base font-medium"
           >
             <ArrowLeft size={18} />
             Back to Blogs
           </Link>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <Link
               to={`/dashboard/blogs/${blog._id}/edit`}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#DCCAB0] text-[#2F120F] hover:bg-[#F3E8D6] transition"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-[#DCCAB0] text-[#2F120F] hover:bg-[#F3E8D6] transition text-xs sm:text-sm font-medium"
             >
-              <Edit size={17} />
+              <Edit size={16} />
               Edit
             </Link>
 
             <button
               onClick={handleDelete}
               disabled={deleting}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-red-200 text-red-700 hover:bg-red-50 transition disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-red-200 text-red-700 hover:bg-red-50 transition disabled:opacity-50 text-xs sm:text-sm font-medium"
             >
-              <Trash2 size={17} />
+              <Trash2 size={16} />
               {deleting ? "Deleting..." : "Delete"}
             </button>
           </div>
@@ -119,20 +119,20 @@ function AdminBlogDetails() {
 
         {/* Article */}
 
-        <article className="mt-10">
+        <article className="mt-8 sm:mt-10">
 
           <div className="flex items-center gap-3">
             <span className="text-xs uppercase tracking-[3px] text-[#8B1111] font-semibold">
               Vedic Astrology
             </span>
 
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
               {blog.status}
             </span>
           </div>
 
           <h1
-            className={`mt-5 text-4xl lg:text-6xl leading-tight text-[#2F120F] ${
+            className={`mt-4 sm:mt-5 text-2xl sm:text-4xl lg:text-5xl leading-tight text-[#2F120F] ${
               isHindi(blog.title)
                 ? "font-devanagari-serif"
                 : "font-serif"
@@ -143,8 +143,8 @@ function AdminBlogDetails() {
 
           {/* Date */}
 
-          <div className="flex items-center gap-2 mt-6 text-gray-500">
-            <CalendarDays size={18} />
+          <div className="flex items-center gap-2 mt-4 sm:mt-6 text-xs sm:text-sm text-gray-500">
+            <CalendarDays size={16} />
 
             <span>
               {blog.created_at
@@ -159,9 +159,9 @@ function AdminBlogDetails() {
 
           {/* Divider */}
 
-          <div className="border-t border-[#ECDCC5] mt-10 pt-10">
+          <div className="border-t border-[#ECDCC5] mt-8 sm:mt-10 pt-8 sm:pt-10">
             <div
-              className={`text-lg leading-9 text-[#3A2A24] whitespace-pre-line ${
+              className={`text-base sm:text-lg leading-7 sm:leading-9 text-[#3A2A24] whitespace-pre-line ${
                 isHindi(blog.content)
                   ? "font-devanagari-sans"
                   : "font-sans"
@@ -174,10 +174,10 @@ function AdminBlogDetails() {
 
         {/* Bottom Navigation */}
 
-        <div className="border-t border-[#ECDCC5] mt-16 pt-8">
+        <div className="border-t border-[#ECDCC5] mt-12 sm:mt-16 pt-6 sm:pt-8">
           <Link
             to="/dashboard/blogs"
-            className="inline-flex items-center gap-2 text-[#8B1111] font-medium hover:text-[#6D0D0D]"
+            className="inline-flex items-center gap-2 text-[#8B1111] font-medium hover:text-[#6D0D0D] text-sm sm:text-base"
           >
             <ArrowLeft size={18} />
             Back to Blog Management

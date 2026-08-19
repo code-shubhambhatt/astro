@@ -87,7 +87,7 @@ function AdminAbout() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F9F1E4] flex items-center justify-center">
+      <div className="flex-1 min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] bg-[#F9F1E4] flex items-center justify-center">
         <p className="text-gray-500">
           Loading About page...
         </p>
@@ -96,243 +96,238 @@ function AdminAbout() {
   }
 
   return (
-    <section className="min-h-screen bg-[#F9F1E4]">
-      <div className="max-w-5xl mx-auto px-6 py-12">
+    <section className="flex-1 bg-[#F9F1E4] min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
         {/* Header */}
 
-        <div className="mb-10">
-          <p className="uppercase tracking-[4px] text-sm font-semibold text-[#8B1111]">
+        <div className="mb-8 sm:mb-10">
+          <p className="uppercase tracking-[4px] text-xs sm:text-sm font-semibold text-[#8B1111]">
             Admin Panel
           </p>
 
-          <h1 className="font-serif text-5xl text-[#2F120F] mt-3">
+          <h1 className="font-serif text-3xl sm:text-5xl text-[#2F120F] mt-2 sm:mt-3">
             Edit About Page
           </h1>
 
-          <p className="text-gray-600 mt-3 max-w-2xl">
+          <p className="text-gray-600 mt-2 sm:mt-3 max-w-2xl text-sm sm:text-base">
             Update the information displayed across your website.
           </p>
         </div>
 
-
         {/* Form */}
 
-<form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
 
-  <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl shadow-md overflow-hidden">
+          <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-2xl sm:rounded-3xl shadow-md overflow-hidden">
 
-    {/* Contact Information */}
+            {/* Contact Information */}
 
-    <div className="p-8 border-b border-[#ECDCC5]">
+            <div className="p-5 sm:p-8 border-b border-[#ECDCC5]">
 
-      <h2 className="font-serif text-3xl text-[#2F120F]">
-        Contact Information
-      </h2>
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#2F120F]">
+                Contact Information
+              </h2>
 
-      <p className="text-sm text-gray-500 mt-1 mb-6">
-        Update the contact details and links displayed on the website.
-      </p>
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5 mb-5 sm:mb-6">
+                Update the contact details and links displayed on the website.
+              </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Phone
-          </label>
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                    Phone
+                  </label>
 
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="+91 9411120641"
-            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-          />
-        </div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+91 9411120641"
+                    className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-2.5 sm:py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition text-sm sm:text-base"
+                  />
+                </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Email
-          </label>
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                    Email
+                  </label>
 
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="example@gmail.com"
-            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-          />
-        </div>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="example@gmail.com"
+                    className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-2.5 sm:py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition text-sm sm:text-base"
+                  />
+                </div>
 
-        <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Address
-          </label>
+                <div className="md:col-span-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                    Address
+                  </label>
 
-          <textarea
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            rows={3}
-            placeholder="Enter complete address"
-            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-          />
-        </div>
+                  <textarea
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    rows={3}
+                    placeholder="Enter complete address"
+                    className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-2.5 sm:py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition text-sm sm:text-base"
+                  />
+                </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Facebook URL
-          </label>
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                    Facebook URL
+                  </label>
 
-          <input
-            type="url"
-            name="facebook"
-            value={formData.facebook}
-            onChange={handleChange}
-            placeholder="https://facebook.com/..."
-            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-          />
-        </div>
+                  <input
+                    type="url"
+                    name="facebook"
+                    value={formData.facebook}
+                    onChange={handleChange}
+                    placeholder="https://facebook.com/..."
+                    className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-2.5 sm:py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition text-sm sm:text-base"
+                  />
+                </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Google Maps Directions
-          </label>
+                <div>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                    Google Maps Directions
+                  </label>
 
-          <input
-            type="url"
-            name="directions"
-            value={formData.directions}
-            onChange={handleChange}
-            placeholder="https://maps.google.com/..."
-            className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-          />
-        </div>
+                  <input
+                    type="url"
+                    name="directions"
+                    value={formData.directions}
+                    onChange={handleChange}
+                    placeholder="https://maps.google.com/..."
+                    className="w-full rounded-xl border border-[#D9C8B2] bg-white px-4 py-2.5 sm:py-3 text-gray-700 outline-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition text-sm sm:text-base"
+                  />
+                </div>
 
-      </div>
+              </div>
 
-    </div>
+            </div>
 
+            {/* About */}
 
-    {/* About */}
+            <div className="p-5 sm:p-8 border-b border-[#ECDCC5]">
 
-    <div className="p-8 border-b border-[#ECDCC5]">
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#2F120F]">
+                About
+              </h2>
 
-      <h2 className="font-serif text-3xl text-[#2F120F]">
-        About
-      </h2>
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5 mb-5 sm:mb-6">
+                Your main introduction and background.
+              </p>
 
-      <p className="text-sm text-gray-500 mt-1 mb-6">
-        Your main introduction and background.
-      </p>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                Description
+              </label>
 
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Description
-      </label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                rows={6}
+                placeholder="Write a short description about Pandit Kamla Prasad Bhatt..."
+                className="w-full rounded-xl sm:rounded-2xl border border-[#D9C8B2] bg-white px-4 py-2.5 sm:py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition text-sm sm:text-base"
+              />
 
-      <textarea
-        name="description"
-        value={formData.description}
-        onChange={handleChange}
-        rows={6}
-        placeholder="Write a short description about Pandit Kamla Prasad Bhatt..."
-        className="w-full rounded-2xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-      />
+            </div>
 
-    </div>
+            {/* Key Milestones */}
 
+            <div className="p-5 sm:p-8 border-b border-[#ECDCC5]">
 
-    {/* Key Milestones */}
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#2F120F]">
+                Key Milestones
+              </h2>
 
-    <div className="p-8 border-b border-[#ECDCC5]">
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5 mb-5 sm:mb-6">
+                Add one milestone per line.
+              </p>
 
-      <h2 className="font-serif text-3xl text-[#2F120F]">
-        Key Milestones
-      </h2>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                Milestones
+              </label>
 
-      <p className="text-sm text-gray-500 mt-1 mb-6">
-        Add one milestone per line.
-      </p>
+              <textarea
+                name="milestones"
+                value={formData.milestones}
+                onChange={handleChange}
+                rows={6}
+                className="w-full rounded-xl sm:rounded-2xl border border-[#D9C8B2] bg-white px-4 py-2.5 sm:py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition text-sm sm:text-base"
+              />
 
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Milestones
-      </label>
+            </div>
 
-      <textarea
-        name="milestones"
-        value={formData.milestones}
-        onChange={handleChange}
-        rows={7}
-        className="w-full rounded-2xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-      />
+            {/* Approach & Ethics */}
 
-    </div>
+            <div className="p-5 sm:p-8 border-b border-[#ECDCC5]">
 
+              <h2 className="font-serif text-2xl sm:text-3xl text-[#2F120F]">
+                Approach & Ethics
+              </h2>
 
-    {/* Approach & Ethics */}
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5 mb-5 sm:mb-6">
+                Add each principle on a separate line.
+              </p>
 
-    <div className="p-8 border-b border-[#ECDCC5]">
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                Approach & Ethics
+              </label>
 
-      <h2 className="font-serif text-3xl text-[#2F120F]">
-        Approach & Ethics
-      </h2>
+              <textarea
+                name="approach_ethics"
+                value={formData.approach_ethics}
+                onChange={handleChange}
+                rows={6}
+                className="w-full rounded-xl sm:rounded-2xl border border-[#D9C8B2] bg-white px-4 py-2.5 sm:py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition text-sm sm:text-base"
+              />
 
-      <p className="text-sm text-gray-500 mt-1 mb-6">
-        Add each principle on a separate line.
-      </p>
+            </div>
 
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Approach & Ethics
-      </label>
+            {/* Footer */}
 
-      <textarea
-        name="approach_ethics"
-        value={formData.approach_ethics}
-        onChange={handleChange}
-        rows={7}
-        className="w-full rounded-2xl border border-[#D9C8B2] bg-white px-4 py-3 text-gray-700 outline-none resize-none focus:border-[#8B1111] focus:ring-2 focus:ring-[#8B1111]/20 transition"
-      />
+            <div className="p-5 sm:px-8 sm:py-6 bg-[#FFF8EF]">
 
-    </div>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
+                <div>
+                  {successMsg && (
+                    <p className="text-xs sm:text-sm text-green-700">
+                      {successMsg}
+                    </p>
+                  )}
 
-    {/* Footer */}
+                  {error && (
+                    <p className="text-xs sm:text-sm text-red-600">
+                      {error}
+                    </p>
+                  )}
+                </div>
 
-    <div className="px-8 py-6 bg-[#FFF8EF]">
+                <button
+                  type="submit"
+                  disabled={saving}
+                  className="w-full sm:w-auto bg-[#8B1111] hover:bg-[#6D0D0D] disabled:opacity-60 text-white px-8 py-3 rounded-full font-medium transition text-sm sm:text-base shadow-sm"
+                >
+                  {saving ? "Saving..." : "Save Changes"}
+                </button>
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              </div>
 
-        <div>
-          {successMsg && (
-            <p className="text-sm text-green-700">
-              {successMsg}
-            </p>
-          )}
+            </div>
 
-          {error && (
-            <p className="text-sm text-red-600">
-              {error}
-            </p>
-          )}
-        </div>
+          </div>
 
-        <button
-          type="submit"
-          disabled={saving}
-          className="bg-[#8B1111] hover:bg-[#6D0D0D] disabled:opacity-60 text-white px-8 py-3 rounded-full font-medium transition"
-        >
-          {saving ? "Saving..." : "Save Changes"}
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</form>
+        </form>
 
       </div>
     </section>

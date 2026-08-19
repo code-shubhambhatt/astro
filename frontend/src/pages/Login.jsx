@@ -34,23 +34,23 @@ function Login() {
   }
 
   return (
-    <section className="min-h-screen bg-[#F9F1E4] flex items-center justify-center px-4">
+    <section className="flex-1 min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] bg-[#F9F1E4] flex items-center justify-center px-4 py-8">
 
       <div className="w-full max-w-md">
 
-        <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-4xl shadow-xl p-10">
+        <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl sm:rounded-4xl shadow-xl p-6 sm:p-10">
 
           <div className="text-center">
 
-            <div className="w-16 h-16 rounded-full bg-[#8B1111] text-white flex items-center justify-center mx-auto mb-6 text-2xl">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#8B1111] text-white flex items-center justify-center mx-auto mb-5 sm:mb-6 text-xl sm:text-2xl">
               ✦
             </div>
 
-            <h1 className="font-serif text-4xl text-[#2F120F]">
+            <h1 className="font-serif text-3xl sm:text-4xl text-[#2F120F]">
               Admin Login
             </h1>
 
-            <p className="mt-3 text-gray-600">
+            <p className="mt-2 sm:mt-3 text-sm sm:text-base text-gray-600">
               Sign in to access the administration panel.
             </p>
 

@@ -151,7 +151,7 @@ function AdminTestimonials() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F9F1E4] flex items-center justify-center">
+      <div className="flex-1 min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)] bg-[#F9F1E4] flex items-center justify-center">
         <p className="text-gray-500">
           Loading testimonials...
         </p>
@@ -160,21 +160,21 @@ function AdminTestimonials() {
   }
 
   return (
-    <section className="min-h-screen bg-[#F9F1E4]">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+    <section className="flex-1 bg-[#F9F1E4] min-h-[calc(100vh-5.5rem)] sm:min-h-[calc(100vh-6.5rem)]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
         {/* Header */}
 
-        <div className="mb-10">
-          <p className="uppercase tracking-[4px] text-sm font-semibold text-[#8B1111]">
+        <div className="mb-8 sm:mb-10">
+          <p className="uppercase tracking-[4px] text-xs sm:text-sm font-semibold text-[#8B1111]">
             Admin Panel
           </p>
 
-          <h1 className="font-serif text-5xl text-[#2F120F] mt-3">
+          <h1 className="font-serif text-3xl sm:text-5xl text-[#2F120F] mt-2 sm:mt-3">
             Manage Testimonials
           </h1>
 
-          <p className="text-gray-600 mt-3">
+          <p className="text-gray-600 mt-2 sm:mt-3 text-sm sm:text-base">
             Edit, hide or show client testimonials.
           </p>
         </div>
@@ -184,16 +184,16 @@ function AdminTestimonials() {
         {editingId && (
           <form
             onSubmit={handleSubmit}
-            className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl shadow-md p-8 mb-10"
+            className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-2xl sm:rounded-3xl shadow-md p-5 sm:p-8 mb-8 sm:mb-10"
           >
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-6">
 
               <div>
-                <h2 className="font-serif text-3xl text-[#2F120F]">
+                <h2 className="font-serif text-2xl sm:text-3xl text-[#2F120F]">
                   Edit Testimonial
                 </h2>
 
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
                   Update the testimonial information.
                 </p>
               </div>
@@ -201,14 +201,14 @@ function AdminTestimonials() {
               <button
                 type="button"
                 onClick={resetForm}
-                className="text-sm text-gray-500 hover:text-[#8B1111]"
+                className="text-xs sm:text-sm text-gray-500 hover:text-[#8B1111] self-start sm:self-auto"
               >
                 Cancel Edit
               </button>
 
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
 
               {/* Client Name */}
 
@@ -347,20 +347,20 @@ function AdminTestimonials() {
 
         {/* Testimonials List */}
 
-        <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-3xl shadow-md overflow-hidden">
+        <div className="bg-[#FCF6EC] border border-[#ECDCC5] rounded-2xl sm:rounded-3xl shadow-md overflow-hidden">
 
-          <div className="px-7 py-6 border-b border-[#ECDCC5]">
-            <h2 className="font-serif text-3xl text-[#2F120F]">
+          <div className="p-4 sm:px-7 sm:py-6 border-b border-[#ECDCC5]">
+            <h2 className="font-serif text-2xl sm:text-3xl text-[#2F120F]">
               Existing Testimonials
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
               Manage client feedback displayed on the website.
             </p>
           </div>
 
           {testimonials.length === 0 ? (
-            <div className="p-10 text-center text-gray-500">
+            <div className="p-8 sm:p-10 text-center text-gray-500 text-sm sm:text-base">
               No testimonials found.
             </div>
           ) : (
@@ -369,21 +369,21 @@ function AdminTestimonials() {
               {testimonials.map((testimonial) => (
                 <div
                   key={testimonial._id}
-                  className="px-7 py-6"
+                  className="p-4 sm:px-7 sm:py-6"
                 >
 
-                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-6">
 
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
 
-                      <div className="flex flex-wrap items-center gap-3">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3">
 
-                        <h3 className="font-serif text-2xl text-[#2F120F]">
+                        <h3 className="font-serif text-xl sm:text-2xl text-[#2F120F]">
                           {testimonial.client_name}
                         </h3>
 
                         <span
-                          className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${
                             testimonial.is_visible
                               ? "bg-green-100 text-green-700"
                               : "bg-gray-200 text-gray-600"
@@ -397,22 +397,22 @@ function AdminTestimonials() {
                       </div>
 
                       {testimonial.client_occupation && (
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
                           {testimonial.client_occupation}
                         </p>
                       )}
 
-                      <p className="text-[#8B1111] font-medium mt-3">
+                      <p className="text-[#8B1111] font-medium mt-2 text-xs sm:text-sm">
                         {testimonial.service_type}
                       </p>
 
-                      <div className="flex gap-1 mt-3">
+                      <div className="flex gap-1 mt-2">
                         {Array.from(
                           { length: testimonial.rating || 0 },
                           (_, index) => (
                             <span
                               key={index}
-                              className="text-yellow-500"
+                              className="text-yellow-500 text-sm sm:text-base"
                             >
                               ★
                             </span>
@@ -420,7 +420,7 @@ function AdminTestimonials() {
                         )}
                       </div>
 
-                      <p className="mt-4 max-w-3xl text-gray-700 italic">
+                      <p className="mt-3 sm:mt-4 max-w-3xl text-gray-700 italic text-sm sm:text-base leading-6 sm:leading-7">
                         "{testimonial.quote}"
                       </p>
 
@@ -428,18 +428,18 @@ function AdminTestimonials() {
 
                     {/* Actions */}
 
-                    <div className="flex gap-3 shrink-0">
+                    <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-start sm:self-auto">
 
                       <button
                         onClick={() => handleEdit(testimonial)}
-                        className="border border-[#8B1111] text-[#8B1111] hover:bg-[#8B1111] hover:text-white px-5 py-2.5 rounded-full text-sm font-medium transition"
+                        className="border border-[#8B1111] text-[#8B1111] hover:bg-[#8B1111] hover:text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition"
                       >
                         Edit
                       </button>
 
                       <button
                         onClick={() => handleToggle(testimonial)}
-                        className={`px-5 py-2.5 rounded-full text-sm font-medium transition ${
+                        className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition ${
                           testimonial.is_visible
                             ? "border border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
                             : "border border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
