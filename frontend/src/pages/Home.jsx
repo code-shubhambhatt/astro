@@ -40,17 +40,15 @@ function Home() {
           {/* LEFT */}
 
           <div>
-            <span className="inline-flex items-center gap-2 bg-[#FCF6EC] border border-[#ECDCC5] px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm text-[#8B1111] font-medium shadow-sm">
+            {/* <span className="inline-flex items-center gap-2 bg-[#FCF6EC] border border-[#ECDCC5] px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm text-[#8B1111] font-medium shadow-sm">
               <CheckCircle2 size={16} />
               Trusted Vedic Astrologer
-            </span>
+            </span> */}
 
-            <h1 className="mt-6 sm:mt-8 font-serif text-4xl sm:text-6xl lg:text-7xl leading-tight text-[#2F120F]">
+            <h1 className="mt-6 sm:mt-8 font-serif text-2xl sm:text-6xl lg:text-6xl leading-tight text-[#2F120F]">
               Pandit
               <br />
-              Kamla Prasad
-              <br />
-              Bhatt
+              Kamla Prasad Bhatt
             </h1>
 
             <p className="mt-4 sm:mt-6 text-xl sm:text-3xl font-serif text-[#7C1111]">
@@ -85,7 +83,7 @@ function Home() {
 
             {/* Features */}
 
-            <div className="mt-10 sm:mt-12 space-y-4 sm:space-y-5 text-sm sm:text-base">
+            {/* <div className="mt-10 sm:mt-12 space-y-4 sm:space-y-5 text-sm sm:text-base">
               <div className="flex items-center gap-3">
                 <CheckCircle2 size={18} className="text-[#8B1111] shrink-0" />
                 <span className="text-[#3A2A24]">
@@ -106,7 +104,7 @@ function Home() {
                   Online & Offline Consultations
                 </span>
               </div>
-            </div>
+            </div> */}
 
             {/* Stats */}
 
