@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getPublishedBlogs } from "../api/blogs";
+import heroImage from "../media/hero.jpeg";
 
 function Home() {
   function isHindi(text) {
@@ -146,7 +147,7 @@ function Home() {
 
               <div className="relative w-full h-full bg-white rounded-3xl sm:rounded-[40px] overflow-hidden shadow-2xl border-4 sm:border-8 border-white">
                 <img
-                  src="/src/media/hero.jpeg"
+                  src={heroImage}
                   alt="Pandit Kamla Prasad Bhatt"
                   className="w-full h-full object-cover"
                 />
