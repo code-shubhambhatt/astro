@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from config import Config
 from extensions import mongo , jwt
@@ -30,6 +31,9 @@ def create_app():
 
     return app
 
+app = create_app()
+
 if __name__ == "__main__":
-    app = create_app()
-    app.run(debug= app.config["DEBUG"], host = "localhost")
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=app.config.get("DEBUG", False), host="0.0.0.0", port=port)
+
